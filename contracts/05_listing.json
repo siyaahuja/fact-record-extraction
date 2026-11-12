@@ -1,0 +1,409 @@
+{
+  "contract": "05_listing",
+  "version": 1,
+  "rules": [
+    "pending_verification fields carry no value: show 'Pending verification'.",
+    "Areas: net (NIA) and gross (GIA) are separate; an area with no stated basis is 'stated_area', never net.",
+    "'property' uses the team catalogue keys (work/hamptons_e14_2dr_lettings.json); unverified values are null."
+  ],
+  "listings": {
+    "kelso-villa": {
+      "unit_id": "kelso-villa-ba1-3au:whole",
+      "fields": {
+        "price": {
+          "value": {
+            "amount": 600000.0,
+            "currency": "GBP"
+          },
+          "display": "£600,000 guide",
+          "fact_id": "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "£600,000 Guide Price",
+            "doc_date": "2026-10-16"
+          }
+        },
+        "tenure": {
+          "value": {
+            "tenure": "freehold"
+          },
+          "display": "Freehold",
+          "fact_id": "f52e9778-bf1a-54c0-b1a9-da9767172cc3",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "f52e9778-bf1a-54c0-b1a9-da9767172cc3",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "Freehold",
+            "doc_date": "2026-10-16"
+          }
+        },
+        "transaction_type": {
+          "value": null,
+          "display": "Pending verification",
+          "fact_id": null,
+          "verification_status": "pending_verification",
+          "blocked_by": [
+            "D02"
+          ]
+        },
+        "net_area": {
+          "value": {
+            "sq_ft": 1911.7,
+            "sq_m": 177.6
+          },
+          "display": "1,912 sq ft (177.6 sq m) NIA",
+          "fact_id": "123f9906-fd4e-59f7-82ac-17b45c66693b",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "123f9906-fd4e-59f7-82ac-17b45c66693b",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Total (all floors) 177.6 1,912 248.2 2,672",
+            "doc_date": "2026-09-18"
+          }
+        },
+        "gross_area": {
+          "value": {
+            "sq_ft": 2671.6,
+            "sq_m": 248.2
+          },
+          "display": "2,672 sq ft (248.2 sq m) GIA",
+          "fact_id": "7cec1cef-05e5-5d79-94b4-9846920effb2",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "7cec1cef-05e5-5d79-94b4-9846920effb2",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Total (all floors) 177.6 1,912 248.2 2,672",
+            "doc_date": "2026-09-18"
+          }
+        },
+        "stated_area": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "epc": {
+          "value": {
+            "band": "C",
+            "score": 58
+          },
+          "display": "EPC C (58)",
+          "fact_id": "fb3268f2-a044-5b08-9b87-243ecf399653",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "fb3268f2-a044-5b08-9b87-243ecf399653",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "9417-3082-6651-2049-7735, dated 2 September 2026) records an asset rating of 58, band C, and a total useful floor area of",
+            "doc_date": "2026-09-18"
+          }
+        },
+        "parking": {
+          "value": null,
+          "display": "Pending verification",
+          "fact_id": null,
+          "verification_status": "pending_verification",
+          "blocked_by": [
+            "D01"
+          ]
+        },
+        "bedrooms": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "availability": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "key_features": {
+          "value": [
+            "Grade II listed",
+            "Grade II listed"
+          ],
+          "items": [
+            {
+              "text": "Grade II listed",
+              "fact_id": "1018d53a-7633-53c1-ac2b-cfaa147a4b25",
+              "verification_status": "verified"
+            },
+            {
+              "text": "Grade II listed",
+              "fact_id": "c1e672bc-1c10-5ade-ab10-026f0b31fb6d",
+              "verification_status": "verified"
+            }
+          ],
+          "verification_status": "verified"
+        }
+      },
+      "property": {
+        "source_url": null,
+        "property_id": "kelso-villa",
+        "reference": "kelso-villa-ba1-3au:whole",
+        "agency": "Carter Jonas",
+        "branch": null,
+        "status": null,
+        "availability": null,
+        "live_date": "2026-10-16",
+        "price": "£600,000 guide",
+        "price_value": 600000,
+        "address": {
+          "display": "Kelso Villa"
+        },
+        "property_type": null,
+        "transaction_type": null,
+        "bedrooms": null,
+        "bathrooms": null,
+        "showers": null,
+        "reception_rooms": null,
+        "furnishing": null,
+        "description": null,
+        "key_features": [
+          "Grade II listed",
+          "Grade II listed"
+        ],
+        "tags": [],
+        "council_tax_band": null,
+        "security_deposit": null,
+        "images": [],
+        "floorplans": [],
+        "epc": {
+          "rating": "C"
+        },
+        "image_data": [],
+        "fact_provenance": {
+          "price": "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+          "tenure": "f52e9778-bf1a-54c0-b1a9-da9767172cc3",
+          "transaction_type": null,
+          "net_area": "123f9906-fd4e-59f7-82ac-17b45c66693b",
+          "gross_area": "7cec1cef-05e5-5d79-94b4-9846920effb2",
+          "stated_area": null,
+          "epc": "fb3268f2-a044-5b08-9b87-243ecf399653",
+          "parking": null,
+          "bedrooms": null,
+          "availability": null
+        },
+        "verification_status": {
+          "price": "verified",
+          "tenure": "verified",
+          "transaction_type": "pending_verification",
+          "net_area": "verified",
+          "gross_area": "verified",
+          "stated_area": "not_stated",
+          "epc": "verified",
+          "parking": "pending_verification",
+          "bedrooms": "not_stated",
+          "availability": "not_stated",
+          "key_features": "verified"
+        }
+      }
+    },
+    "59-st-huberts-close": {
+      "unit_id": "st-huberts-close-gerrards-cross:no-59",
+      "fields": {
+        "price": {
+          "value": {
+            "amount": 1395000.0,
+            "currency": "GBP"
+          },
+          "display": "£1,395,000 guide",
+          "fact_id": "3ef5bc75-5fe8-5911-9168-88a1a96bab4a",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "3ef5bc75-5fe8-5911-9168-88a1a96bab4a",
+            "doc_id": "syn-shc59-price",
+            "doc_type": "developer_instruction",
+            "issuer": "Harcourt Lane LLP",
+            "page": 1,
+            "quote": "£1,395,000",
+            "doc_date": "2026-11-03"
+          }
+        },
+        "tenure": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "transaction_type": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "net_area": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "gross_area": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "stated_area": {
+          "value": {
+            "sq_ft": 2848.0,
+            "sq_m": 264.6
+          },
+          "display": "2,848 sq ft (264.6 sq m) [basis not stated]",
+          "fact_id": "ef3a2e6f-0cd0-5709-8978-0880f760436f",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "ef3a2e6f-0cd0-5709-8978-0880f760436f",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 2,
+            "quote": "2,848 sq ft (264.6 sq m)",
+            "doc_date": "2026-04"
+          }
+        },
+        "epc": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "parking": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "bedrooms": {
+          "value": {
+            "count": 5
+          },
+          "display": "5 bedrooms",
+          "fact_id": "2990e754-019f-55e9-a42a-97e485b4f9bf",
+          "verification_status": "verified",
+          "citation": {
+            "fact_id": "2990e754-019f-55e9-a42a-97e485b4f9bf",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 2,
+            "quote": "A handsome five bedroom detached",
+            "doc_date": "2026-04"
+          }
+        },
+        "availability": {
+          "value": null,
+          "display": null,
+          "fact_id": null,
+          "verification_status": "not_stated",
+          "blocked_by": []
+        },
+        "key_features": {
+          "value": [
+            "guest suite benefits from an en\nsuite shower room",
+            "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom"
+          ],
+          "items": [
+            {
+              "text": "guest suite benefits from an en\nsuite shower room",
+              "fact_id": "5c1c306b-b3cf-5a06-8038-06d913317c4c",
+              "verification_status": "verified"
+            },
+            {
+              "text": "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom",
+              "fact_id": "ed6b57c5-5a74-542c-98c9-982bf020d865",
+              "verification_status": "verified"
+            }
+          ],
+          "verification_status": "verified"
+        }
+      },
+      "property": {
+        "source_url": null,
+        "property_id": "59-st-huberts-close",
+        "reference": "st-huberts-close-gerrards-cross:no-59",
+        "agency": "Harcourt Lane LLP",
+        "branch": null,
+        "status": null,
+        "availability": null,
+        "live_date": "2026-11-03",
+        "price": "£1,395,000 guide",
+        "price_value": 1395000,
+        "address": {
+          "display": "59 St Huberts Close"
+        },
+        "property_type": null,
+        "transaction_type": null,
+        "bedrooms": 5,
+        "bathrooms": null,
+        "showers": null,
+        "reception_rooms": null,
+        "furnishing": null,
+        "description": null,
+        "key_features": [
+          "guest suite benefits from an en\nsuite shower room",
+          "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom"
+        ],
+        "tags": [],
+        "council_tax_band": null,
+        "security_deposit": null,
+        "images": [],
+        "floorplans": [],
+        "epc": {},
+        "image_data": [],
+        "fact_provenance": {
+          "price": "3ef5bc75-5fe8-5911-9168-88a1a96bab4a",
+          "tenure": null,
+          "transaction_type": null,
+          "net_area": null,
+          "gross_area": null,
+          "stated_area": "ef3a2e6f-0cd0-5709-8978-0880f760436f",
+          "epc": null,
+          "parking": null,
+          "bedrooms": "2990e754-019f-55e9-a42a-97e485b4f9bf",
+          "availability": null
+        },
+        "verification_status": {
+          "price": "verified",
+          "tenure": "not_stated",
+          "transaction_type": "not_stated",
+          "net_area": "not_stated",
+          "gross_area": "not_stated",
+          "stated_area": "verified",
+          "epc": "not_stated",
+          "parking": "not_stated",
+          "bedrooms": "verified",
+          "availability": "not_stated",
+          "key_features": "verified"
+        }
+      }
+    }
+  }
+}

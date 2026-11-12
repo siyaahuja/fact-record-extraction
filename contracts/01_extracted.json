@@ -1,0 +1,2665 @@
+{
+  "contract": "01_extracted",
+  "version": 1,
+  "source": "real pipeline output: out/facts.jsonl, out/contradictions.jsonl, out/documents.jsonl (rules extractor)",
+  "developments": {
+    "kelso-villa": {
+      "development_id": "kelso-villa-ba1-3au",
+      "documents": [
+        {
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "issuer_org": "Carter Jonas",
+          "doc_date": "2026-04-13",
+          "doc_date_source": "file_metadata",
+          "page_count": 2,
+          "unit_id": "kelso-villa-ba1-3au:whole"
+        },
+        {
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "issuer_org": "Carter Jonas",
+          "doc_date": "2026-10-16",
+          "doc_date_source": "file_metadata",
+          "page_count": 2,
+          "unit_id": "kelso-villa-ba1-3au:whole"
+        },
+        {
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "issuer_org": "Holloway & Reid",
+          "doc_date": "2026-09-18",
+          "doc_date_source": "printed",
+          "page_count": 4,
+          "unit_id": "kelso-villa-ba1-3au:whole"
+        }
+      ],
+      "facts": [
+        {
+          "id": "4a2be105-69be-5f37-b9fa-bf40e63846bc",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "availability",
+          "qualifier": {
+            "scope": "floor:lower_ground"
+          },
+          "basis": null,
+          "scope": "floor:lower_ground",
+          "value_raw": "TO\n\nLET—LOWER\n\nGROUND\n\nFLOOR",
+          "value": {
+            "status": "available"
+          },
+          "display": "available",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "TO LET—LOWER GROUND FLOOR",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "92011475-27df-5055-b42b-28543434f390",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "floor:lower_ground"
+          },
+          "basis": "unspecified",
+          "scope": "floor:lower_ground",
+          "value_raw": "468 Sq Ft (43.45 Sq M)",
+          "value": {
+            "amount": 468.0,
+            "unit": "sq_ft"
+          },
+          "display": "468 sq ft (43.5 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 468.0,
+            "sq_m": 43.5
+          },
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "468 Sq Ft (43.45 Sq M)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1263ffde-b1be-5498-ac9b-8d5fcbae0e6f",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "per_floor"
+          },
+          "basis": null,
+          "scope": "per_floor",
+          "value_raw": "one space",
+          "value": {
+            "spaces": 1,
+            "kind": "unspecified"
+          },
+          "display": "1 parking space (per floor)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "Parking on site (one space per floor)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "547eeab4-6102-5c05-9a44-614b42f340a1",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "tenure",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "Freehold",
+          "value": {
+            "tenure": "freehold"
+          },
+          "display": "Freehold",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "To Let (Freehold Sale may be con-",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "cb9b13d8-fbbd-5ad2-a155-5da83bf4a791",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "transaction_type",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "TO\n\nLET",
+          "value": {
+            "type": "to_let"
+          },
+          "display": "To let",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "TO LET—LOWER",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "a92c347b-54f6-5ec8-bfd1-cacf9a7d67e0",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "epc_rating",
+          "qualifier": {
+            "type": "current"
+          },
+          "basis": null,
+          "scope": "building",
+          "value_raw": "EPC has been assessed as B",
+          "value": {
+            "band": "B"
+          },
+          "display": "EPC B",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "EPC has been assessed as B.",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "00446071-64aa-59e3-aa43-53e53eb0b02c",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "floor:lower_ground"
+          },
+          "basis": "unspecified",
+          "scope": "floor:lower_ground",
+          "value_raw": "43.45 | 468",
+          "value": {
+            "amount": 43.45,
+            "unit": "sq_m"
+          },
+          "display": "468 sq ft (43.5 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 467.7,
+            "sq_m": 43.5
+          },
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "Lower Floor 43.45 468",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "164fba33-d56f-5692-94dd-721d9a573667",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "whole"
+          },
+          "basis": "unspecified",
+          "scope": "whole",
+          "value_raw": "185 | 2,700",
+          "value": {
+            "amount": 185.0,
+            "unit": "sq_m"
+          },
+          "display": "1,991 sq ft (185.0 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 1991.3,
+            "sq_m": 185.0
+          },
+          "doc_error": true,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "Total (ALL FLOORS) 185 2,700",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "19a14449-27c2-5495-b0a8-52a14b92b6e8",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "per_floor"
+          },
+          "basis": null,
+          "scope": "per_floor",
+          "value_raw": "one space",
+          "value": {
+            "spaces": 1,
+            "kind": "unspecified"
+          },
+          "display": "1 parking space (per floor)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "are with the building and one space is available per",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "42c7cc18-c774-5e86-989b-8699c4bcd72f",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "total"
+          },
+          "basis": null,
+          "scope": "total",
+          "value_raw": "Six parking spaces",
+          "value": {
+            "spaces": 6,
+            "kind": "unspecified"
+          },
+          "display": "6 parking spaces (total)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "es within a courtyard setting. Six parking spaces",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "74658607-295d-56f2-8f7a-b4964a0ab90d",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "price",
+          "qualifier": {
+            "type": "offers_in_region"
+          },
+          "basis": null,
+          "scope": "building",
+          "value_raw": "£700,000",
+          "value": {
+            "amount": 700000.0,
+            "currency": "GBP"
+          },
+          "display": "£700,000 offers in region",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "£700,000, subject to existing tenancies. (Details",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "666e7cb9-9d75-5ffa-8f86-af6b4660d87a",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "rent",
+          "qualifier": {
+            "period": "annum",
+            "per": "floor"
+          },
+          "basis": null,
+          "scope": "unit",
+          "value_raw": "£9,400 per annum,",
+          "value": {
+            "amount": 9400.0,
+            "currency": "GBP"
+          },
+          "display": "£9,400 per annum",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "£9,400 per annum, exclusive for each floor. One",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "a57ff0ac-e875-5feb-85d0-2670fbe64fb2",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "tenure",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "Freehold",
+          "value": {
+            "tenure": "freehold"
+          },
+          "display": "Freehold",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-98889981",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04-13",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "Alternatively Freehold offers will be considered at",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "8dbbc049-6dae-5d34-b406-b068591989d6",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "whole"
+          },
+          "basis": "GIA",
+          "scope": "whole",
+          "value_raw": "2,700\nsq ft",
+          "value": {
+            "amount": 2700.0,
+            "unit": "sq_ft"
+          },
+          "display": "2,700 sq ft (250.8 sq m) GIA",
+          "normalised": {
+            "sq_ft": 2700.0,
+            "sq_m": 250.8
+          },
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "1,990 sq ft (185m2) net offices (2,700 sq ft GIA)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "02fa9f25-9ba7-5068-b325-93a032546a21",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "whole"
+          },
+          "basis": "NIA",
+          "scope": "whole",
+          "value_raw": "1,990 sq ft (185m2)",
+          "value": {
+            "amount": 1990.0,
+            "unit": "sq_ft"
+          },
+          "display": "1,990 sq ft (184.9 sq m) NIA",
+          "normalised": {
+            "sq_ft": 1990.0,
+            "sq_m": 184.9
+          },
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "1,990 sq ft (185m2) net offices (2,700",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1018d53a-7633-53c1-ac2b-cfaa147a4b25",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "listed_status",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "Grade II Listed",
+          "value": {
+            "grade": "II"
+          },
+          "display": "Grade II listed",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "Grade II Listed.",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "b3c8d435-1a00-5791-9e4d-a5ca48e8cda0",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "total"
+          },
+          "basis": null,
+          "scope": "total",
+          "value_raw": "6 spaces",
+          "value": {
+            "spaces": 6,
+            "kind": "unspecified"
+          },
+          "display": "6 parking spaces (total)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "Parking on site (6 spaces total)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "f52e9778-bf1a-54c0-b1a9-da9767172cc3",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "tenure",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "Freehold",
+          "value": {
+            "tenure": "freehold"
+          },
+          "display": "Freehold",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "Freehold",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1d157e4b-2590-5d38-ba20-10ad505f9dd2",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "transaction_type",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "FOR\n\nSALE",
+          "value": {
+            "type": "for_sale"
+          },
+          "display": "For sale",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "FOR SALE",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "9bfd3dc2-bff8-593b-b8c2-1ab11694ec80",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "transaction_type",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "For Sale or To Let",
+          "value": {
+            "type": "for_sale_or_to_let"
+          },
+          "display": "For sale or to let",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 1,
+          "quote": "For Sale or To Let (one floor remain-",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "2a377fc2-0b77-5cf6-92c6-dc9a31f23cc0",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "epc_rating",
+          "qualifier": {
+            "type": "current"
+          },
+          "basis": null,
+          "scope": "building",
+          "value_raw": "EPC has been assessed as B",
+          "value": {
+            "band": "B"
+          },
+          "display": "EPC B",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "EPC has been assessed as B.",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "b8dda446-e85b-5fc5-86c2-3dc9c713d04c",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "whole"
+          },
+          "basis": "NIA",
+          "scope": "whole",
+          "value_raw": "185 | 1,990",
+          "value": {
+            "amount": 185.0,
+            "unit": "sq_m"
+          },
+          "display": "1,991 sq ft (185.0 sq m) NIA",
+          "normalised": {
+            "sq_ft": 1991.3,
+            "sq_m": 185.0
+          },
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "Total 185 1,990",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "8c7c0486-d0a8-5cdf-b407-5e6aed49853d",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "per_floor"
+          },
+          "basis": null,
+          "scope": "per_floor",
+          "value_raw": "one space",
+          "value": {
+            "spaces": 1,
+            "kind": "unspecified"
+          },
+          "display": "1 parking space (per floor)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "are with the building and one space is available per",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "2918a729-e805-5bf6-b45d-6e83ebcc9bcb",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "total"
+          },
+          "basis": null,
+          "scope": "total",
+          "value_raw": "Six parking spaces",
+          "value": {
+            "spaces": 6,
+            "kind": "unspecified"
+          },
+          "display": "6 parking spaces (total)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "es within a courtyard setting. Six parking spaces",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "price",
+          "qualifier": {
+            "type": "guide"
+          },
+          "basis": null,
+          "scope": "building",
+          "value_raw": "£600,000",
+          "value": {
+            "amount": 600000.0,
+            "currency": "GBP"
+          },
+          "display": "£600,000 guide",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "£600,000 Guide Price",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1d503c32-d1a9-56da-a254-33b5a164d5e6",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "price",
+          "qualifier": {
+            "type": "offers_in_region"
+          },
+          "basis": null,
+          "scope": "building",
+          "value_raw": "£600,000",
+          "value": {
+            "amount": 600000.0,
+            "currency": "GBP"
+          },
+          "display": "£600,000 offers in region",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "building at £600,000, subject to existing tenan-",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "7f7eccde-09ff-585d-823f-43b91ba023de",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "tenure",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "Freehold",
+          "value": {
+            "tenure": "freehold"
+          },
+          "display": "Freehold",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "carterjonas-f8692efa",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-10-16",
+          "issuer": "Carter Jonas",
+          "page": 2,
+          "quote": "Freehold offers will be considered for the whole",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "fb3268f2-a044-5b08-9b87-243ecf399653",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "epc_rating",
+          "qualifier": {
+            "type": "current"
+          },
+          "basis": null,
+          "scope": "building",
+          "value_raw": "asset rating of 58, band C",
+          "value": {
+            "band": "C",
+            "score": 58
+          },
+          "display": "EPC C (58)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "9417-3082-6651-2049-7735, dated 2 September 2026) records an asset rating of 58, band C, and a total useful floor area of",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "81a3f0d3-8e57-5453-98b3-46fb8efdf7f3",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "EPC",
+            "scope": "whole"
+          },
+          "basis": "EPC",
+          "scope": "whole",
+          "value_raw": "239 m²",
+          "value": {
+            "amount": 239.0,
+            "unit": "sq_m"
+          },
+          "display": "2,573 sq ft (239.0 sq m) EPC",
+          "normalised": {
+            "sq_ft": 2572.6,
+            "sq_m": 239.0
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "239 m². EPC floor area is calculated on its own basis and is not comparable with the NIA or GIA above.",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "07e5ef12-3892-5064-843b-c41ce8d1bcda",
+          "unit_id": "kelso-villa-ba1-3au:first",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:first"
+          },
+          "basis": "GIA",
+          "scope": "floor:first",
+          "value_raw": "63.8 | 687",
+          "value": {
+            "amount": 63.8,
+            "unit": "sq_m"
+          },
+          "display": "687 sq ft (63.8 sq m) GIA",
+          "normalised": {
+            "sq_ft": 686.7,
+            "sq_m": 63.8
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "First Floor 47.9 516 63.8 687",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "5fb6ac32-e611-5fe2-ab61-7cb0bb70cb30",
+          "unit_id": "kelso-villa-ba1-3au:ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:ground"
+          },
+          "basis": "GIA",
+          "scope": "floor:ground",
+          "value_raw": "64.4 | 693",
+          "value": {
+            "amount": 64.4,
+            "unit": "sq_m"
+          },
+          "display": "693 sq ft (64.4 sq m) GIA",
+          "normalised": {
+            "sq_ft": 693.2,
+            "sq_m": 64.4
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Ground Floor 48.6 523 64.4 693",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "3b6f02e2-94af-5578-8894-bf0bb24cc559",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:lower_ground"
+          },
+          "basis": "GIA",
+          "scope": "floor:lower_ground",
+          "value_raw": "60.9 | 656",
+          "value": {
+            "amount": 60.9,
+            "unit": "sq_m"
+          },
+          "display": "656 sq ft (60.9 sq m) GIA",
+          "normalised": {
+            "sq_ft": 655.5,
+            "sq_m": 60.9
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Lower Ground Floor 42.8 461 60.9 656",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "ccc8e212-03fc-5b97-b048-25bcfe5c3c1b",
+          "unit_id": "kelso-villa-ba1-3au:second",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:second"
+          },
+          "basis": "GIA",
+          "scope": "floor:second",
+          "value_raw": "59.1 | 636",
+          "value": {
+            "amount": 59.1,
+            "unit": "sq_m"
+          },
+          "display": "636 sq ft (59.1 sq m) GIA",
+          "normalised": {
+            "sq_ft": 636.1,
+            "sq_m": 59.1
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Second Floor 38.3 412 59.1 636",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "7cec1cef-05e5-5d79-94b4-9846920effb2",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "whole"
+          },
+          "basis": "GIA",
+          "scope": "whole",
+          "value_raw": "248.2 | 2,672",
+          "value": {
+            "amount": 248.2,
+            "unit": "sq_m"
+          },
+          "display": "2,672 sq ft (248.2 sq m) GIA",
+          "normalised": {
+            "sq_ft": 2671.6,
+            "sq_m": 248.2
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Total (all floors) 177.6 1,912 248.2 2,672",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "d9e449af-0610-5272-b137-ccfcf7e34e59",
+          "unit_id": "kelso-villa-ba1-3au:first",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:first"
+          },
+          "basis": "NIA",
+          "scope": "floor:first",
+          "value_raw": "47.9 | 516",
+          "value": {
+            "amount": 47.9,
+            "unit": "sq_m"
+          },
+          "display": "516 sq ft (47.9 sq m) NIA",
+          "normalised": {
+            "sq_ft": 515.6,
+            "sq_m": 47.9
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "First Floor 47.9 516 63.8 687",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "e80e65e4-838d-5aab-adb7-f3b81235ff4f",
+          "unit_id": "kelso-villa-ba1-3au:ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:ground"
+          },
+          "basis": "NIA",
+          "scope": "floor:ground",
+          "value_raw": "48.6 | 523",
+          "value": {
+            "amount": 48.6,
+            "unit": "sq_m"
+          },
+          "display": "523 sq ft (48.6 sq m) NIA",
+          "normalised": {
+            "sq_ft": 523.1,
+            "sq_m": 48.6
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Ground Floor 48.6 523 64.4 693",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "0bc47591-6eb3-59dd-85c3-87eb82db29d2",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:lower_ground"
+          },
+          "basis": "NIA",
+          "scope": "floor:lower_ground",
+          "value_raw": "42.8 | 461",
+          "value": {
+            "amount": 42.8,
+            "unit": "sq_m"
+          },
+          "display": "461 sq ft (42.8 sq m) NIA",
+          "normalised": {
+            "sq_ft": 460.7,
+            "sq_m": 42.8
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Lower Ground Floor 42.8 461 60.9 656",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "32b6c039-5cc6-502c-96ba-366d75336f6b",
+          "unit_id": "kelso-villa-ba1-3au:second",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:second"
+          },
+          "basis": "NIA",
+          "scope": "floor:second",
+          "value_raw": "38.3 | 412",
+          "value": {
+            "amount": 38.3,
+            "unit": "sq_m"
+          },
+          "display": "412 sq ft (38.3 sq m) NIA",
+          "normalised": {
+            "sq_ft": 412.3,
+            "sq_m": 38.3
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Second Floor 38.3 412 59.1 636",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "123f9906-fd4e-59f7-82ac-17b45c66693b",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "whole"
+          },
+          "basis": "NIA",
+          "scope": "whole",
+          "value_raw": "177.6 | 1,912",
+          "value": {
+            "amount": 177.6,
+            "unit": "sq_m"
+          },
+          "display": "1,912 sq ft (177.6 sq m) NIA",
+          "normalised": {
+            "sq_ft": 1911.7,
+            "sq_m": 177.6
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Total (all floors) 177.6 1,912 248.2 2,672",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "c1e672bc-1c10-5ade-ab10-026f0b31fb6d",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "listed_status",
+          "qualifier": {},
+          "basis": null,
+          "scope": "building",
+          "value_raw": "Grade II listed",
+          "value": {
+            "grade": "II"
+          },
+          "display": "Grade II listed",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Schedule of areas: Grade II listed office building, four storeys (lower ground to second floor)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "d75b0e65-645b-5044-ada0-07fbcc959b98",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "total"
+          },
+          "basis": null,
+          "scope": "total",
+          "value_raw": "five (5) bays",
+          "value": {
+            "spaces": 5,
+            "kind": "allocated"
+          },
+          "display": "5 allocated parking spaces (total)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Parking. The rear courtyard is lined for six bays. On the date of survey five (5) bays (1 to 5) were in use as allocated parking;",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "cf8bde92-cf26-5461-962f-69c440f20b96",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "total"
+          },
+          "basis": null,
+          "scope": "total",
+          "value_raw": "six bays",
+          "value": {
+            "spaces": 6,
+            "kind": "unspecified"
+          },
+          "display": "6 parking spaces (total)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 1,
+          "quote": "Parking. The rear courtyard is lined for six bays. On the date of survey five (5) bays (1 to 5) were in use as allocated parking;",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "d2dfba70-8d82-5df2-b1c0-ae528f4b13af",
+          "unit_id": "kelso-villa-ba1-3au:ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:ground"
+          },
+          "basis": "GIA",
+          "scope": "floor:ground",
+          "value_raw": "64.4 m² (693 sq ft)",
+          "value": {
+            "amount": 64.4,
+            "unit": "sq_m"
+          },
+          "display": "693 sq ft (64.4 sq m) GIA",
+          "normalised": {
+            "sq_ft": 693.2,
+            "sq_m": 64.4
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 2,
+          "quote": "NIA 48.6 m² (523 sq ft) GIA 64.4 m² (693 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "8d1f5b29-6d24-5484-9ebe-e53e78869a28",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:lower_ground"
+          },
+          "basis": "GIA",
+          "scope": "floor:lower_ground",
+          "value_raw": "60.9 m² (656 sq ft)",
+          "value": {
+            "amount": 60.9,
+            "unit": "sq_m"
+          },
+          "display": "656 sq ft (60.9 sq m) GIA",
+          "normalised": {
+            "sq_ft": 655.5,
+            "sq_m": 60.9
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 2,
+          "quote": "NIA 42.8 m² (461 sq ft) GIA 60.9 m² (656 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "b0189861-bd53-589b-820b-62dd28d4b136",
+          "unit_id": "kelso-villa-ba1-3au:ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:ground"
+          },
+          "basis": "NIA",
+          "scope": "floor:ground",
+          "value_raw": "48.6 m² (523 sq ft)",
+          "value": {
+            "amount": 48.6,
+            "unit": "sq_m"
+          },
+          "display": "523 sq ft (48.6 sq m) NIA",
+          "normalised": {
+            "sq_ft": 523.1,
+            "sq_m": 48.6
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 2,
+          "quote": "NIA 48.6 m² (523 sq ft) GIA 64.4 m² (693 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "da591ceb-e55d-526a-84d1-165bf4217424",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:lower_ground"
+          },
+          "basis": "NIA",
+          "scope": "floor:lower_ground",
+          "value_raw": "42.8 m² (461 sq ft)",
+          "value": {
+            "amount": 42.8,
+            "unit": "sq_m"
+          },
+          "display": "461 sq ft (42.8 sq m) NIA",
+          "normalised": {
+            "sq_ft": 460.7,
+            "sq_m": 42.8
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 2,
+          "quote": "NIA 42.8 m² (461 sq ft) GIA 60.9 m² (656 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "aa3ef13a-a9e8-5f2c-a689-8ae40e7e6fcb",
+          "unit_id": "kelso-villa-ba1-3au:first",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:first"
+          },
+          "basis": "GIA",
+          "scope": "floor:first",
+          "value_raw": "63.8 m² (687 sq ft)",
+          "value": {
+            "amount": 63.8,
+            "unit": "sq_m"
+          },
+          "display": "687 sq ft (63.8 sq m) GIA",
+          "normalised": {
+            "sq_ft": 686.7,
+            "sq_m": 63.8
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 3,
+          "quote": "NIA 47.9 m² (516 sq ft) GIA 63.8 m² (687 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "78c5d8a7-5cb3-5114-8fba-69c6f1cb143f",
+          "unit_id": "kelso-villa-ba1-3au:second",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "floor:second"
+          },
+          "basis": "GIA",
+          "scope": "floor:second",
+          "value_raw": "59.1 m² (636 sq ft)",
+          "value": {
+            "amount": 59.1,
+            "unit": "sq_m"
+          },
+          "display": "636 sq ft (59.1 sq m) GIA",
+          "normalised": {
+            "sq_ft": 636.1,
+            "sq_m": 59.1
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 3,
+          "quote": "NIA 38.3 m² (412 sq ft) GIA 59.1 m² (636 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "65d6d114-9f2a-5a08-8aea-2191c04c7358",
+          "unit_id": "kelso-villa-ba1-3au:first",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:first"
+          },
+          "basis": "NIA",
+          "scope": "floor:first",
+          "value_raw": "47.9 m² (516 sq ft)",
+          "value": {
+            "amount": 47.9,
+            "unit": "sq_m"
+          },
+          "display": "516 sq ft (47.9 sq m) NIA",
+          "normalised": {
+            "sq_ft": 515.6,
+            "sq_m": 47.9
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 3,
+          "quote": "NIA 47.9 m² (516 sq ft) GIA 63.8 m² (687 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "14697d48-1d30-55c4-a218-f1cc0e75553f",
+          "unit_id": "kelso-villa-ba1-3au:second",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "NIA",
+            "scope": "floor:second"
+          },
+          "basis": "NIA",
+          "scope": "floor:second",
+          "value_raw": "38.3 m² (412 sq ft)",
+          "value": {
+            "amount": 38.3,
+            "unit": "sq_m"
+          },
+          "display": "412 sq ft (38.3 sq m) NIA",
+          "normalised": {
+            "sq_ft": 412.3,
+            "sq_m": 38.3
+          },
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 3,
+          "quote": "NIA 38.3 m² (412 sq ft) GIA 59.1 m² (636 sq ft)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "448ac4a4-9794-55a0-be45-a64b3eaf6573",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "field": "parking",
+          "qualifier": {
+            "scope": "total"
+          },
+          "basis": null,
+          "scope": "total",
+          "value_raw": "Allocated parking bays: 5",
+          "value": {
+            "spaces": 5,
+            "kind": "allocated"
+          },
+          "display": "5 allocated parking spaces (total)",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-kv-survey",
+          "doc_type": "measured_survey",
+          "authority_tier": 3,
+          "doc_date": "2026-09-18",
+          "issuer": "Holloway & Reid",
+          "page": 4,
+          "quote": "Allocated parking bays: 5",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        }
+      ],
+      "contradictions": [
+        {
+          "id": "C01",
+          "type": "version_supersession",
+          "field": "price",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "whole"
+          ],
+          "fact_ids": [
+            "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+            "1d503c32-d1a9-56da-a254-33b5a164d5e6",
+            "74658607-295d-56f2-8f7a-b4964a0ab90d"
+          ],
+          "values": [
+            "£600,000 guide [carterjonas-f8692efa p2]",
+            "£600,000 offers in region [carterjonas-f8692efa p2]",
+            "£700,000 offers in region [carterjonas-98889981 p2]"
+          ],
+          "recommended_fact_id": "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+          "recommendation_reason": "Same authority tier (5): newest document wins (particulars, 2026-10-16).",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C02",
+          "type": "unit_or_measurement_mismatch",
+          "field": "floor_area",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "whole"
+          ],
+          "fact_ids": [
+            "02fa9f25-9ba7-5068-b325-93a032546a21",
+            "164fba33-d56f-5692-94dd-721d9a573667",
+            "8dbbc049-6dae-5d34-b406-b068591989d6"
+          ],
+          "values": [
+            "1,990 sq ft (184.9 sq m) NIA [carterjonas-f8692efa p1]",
+            "1,991 sq ft (185.0 sq m) [basis not stated] [carterjonas-98889981 p2]",
+            "2,700 sq ft (250.8 sq m) GIA [carterjonas-f8692efa p1]"
+          ],
+          "recommended_fact_id": "02fa9f25-9ba7-5068-b325-93a032546a21",
+          "recommendation_reason": "Same authority tier (5): newest document wins (particulars, 2026-10-16). A member has doc_error (printed units disagree).",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C03",
+          "type": "true_conflict",
+          "field": "floor_area",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "whole"
+          ],
+          "fact_ids": [
+            "02fa9f25-9ba7-5068-b325-93a032546a21",
+            "123f9906-fd4e-59f7-82ac-17b45c66693b"
+          ],
+          "values": [
+            "1,990 sq ft (184.9 sq m) NIA [carterjonas-f8692efa p1]",
+            "1,912 sq ft (177.6 sq m) NIA [syn-kv-survey p1]"
+          ],
+          "recommended_fact_id": "123f9906-fd4e-59f7-82ac-17b45c66693b",
+          "recommendation_reason": "Highest authority: measured_survey (tier 3, 2026-09-18) over tier 5.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C04",
+          "type": "true_conflict",
+          "field": "floor_area",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "whole"
+          ],
+          "fact_ids": [
+            "7cec1cef-05e5-5d79-94b4-9846920effb2",
+            "8dbbc049-6dae-5d34-b406-b068591989d6"
+          ],
+          "values": [
+            "2,672 sq ft (248.2 sq m) GIA [syn-kv-survey p1]",
+            "2,700 sq ft (250.8 sq m) GIA [carterjonas-f8692efa p1]"
+          ],
+          "recommended_fact_id": "7cec1cef-05e5-5d79-94b4-9846920effb2",
+          "recommendation_reason": "Highest authority: measured_survey (tier 3, 2026-09-18) over tier 5.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C05",
+          "type": "unit_or_measurement_mismatch",
+          "field": "floor_area",
+          "unit_id": "kelso-villa-ba1-3au:lower-ground",
+          "scope": [
+            "floor:lower_ground"
+          ],
+          "fact_ids": [
+            "0bc47591-6eb3-59dd-85c3-87eb82db29d2",
+            "92011475-27df-5055-b42b-28543434f390"
+          ],
+          "values": [
+            "461 sq ft (42.8 sq m) NIA [syn-kv-survey p1]",
+            "468 sq ft (43.5 sq m) [basis not stated] [carterjonas-98889981 p1]"
+          ],
+          "recommended_fact_id": null,
+          "recommendation_reason": "Different scopes or bases: keep both, each labelled with its own scope.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C06",
+          "type": "true_conflict",
+          "field": "parking",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "total"
+          ],
+          "fact_ids": [
+            "448ac4a4-9794-55a0-be45-a64b3eaf6573",
+            "b3c8d435-1a00-5791-9e4d-a5ca48e8cda0",
+            "d75b0e65-645b-5044-ada0-07fbcc959b98"
+          ],
+          "values": [
+            "5 allocated parking spaces (total) [syn-kv-survey p4]",
+            "6 parking spaces (total) [carterjonas-f8692efa p1]",
+            "5 allocated parking spaces (total) [syn-kv-survey p1]"
+          ],
+          "recommended_fact_id": "d75b0e65-645b-5044-ada0-07fbcc959b98",
+          "recommendation_reason": "Highest authority: measured_survey (tier 3, 2026-09-18) over tier 5.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C07",
+          "type": "scope_difference",
+          "field": "parking",
+          "unit_id": "kelso-villa-ba1-3au:whole vs per-floor",
+          "scope": [
+            "per_floor",
+            "total"
+          ],
+          "fact_ids": [
+            "1263ffde-b1be-5498-ac9b-8d5fcbae0e6f",
+            "b3c8d435-1a00-5791-9e4d-a5ca48e8cda0"
+          ],
+          "values": [
+            "1 parking space (per floor) [carterjonas-98889981 p1]",
+            "6 parking spaces (total) [carterjonas-f8692efa p1]"
+          ],
+          "recommended_fact_id": null,
+          "recommendation_reason": "Different scopes or bases: keep both, each labelled with its own scope.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C08",
+          "type": "official_record_mismatch",
+          "field": "epc_rating",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "whole"
+          ],
+          "fact_ids": [
+            "2a377fc2-0b77-5cf6-92c6-dc9a31f23cc0",
+            "a92c347b-54f6-5ec8-bfd1-cacf9a7d67e0",
+            "fb3268f2-a044-5b08-9b87-243ecf399653"
+          ],
+          "values": [
+            "EPC B [carterjonas-f8692efa p2]",
+            "EPC B [carterjonas-98889981 p2]",
+            "EPC C (58) [syn-kv-survey p1]"
+          ],
+          "recommended_fact_id": "fb3268f2-a044-5b08-9b87-243ecf399653",
+          "recommendation_reason": "Official record (or a document citing it) differs from marketing; a human checks the register.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "D01",
+          "type": "version_supersession",
+          "field": "parking",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "total"
+          ],
+          "fact_ids": [
+            "42c7cc18-c774-5e86-989b-8699c4bcd72f",
+            "448ac4a4-9794-55a0-be45-a64b3eaf6573",
+            "d75b0e65-645b-5044-ada0-07fbcc959b98"
+          ],
+          "values": [
+            "6 parking spaces (total) [carterjonas-98889981 p2]",
+            "5 allocated parking spaces (total) [syn-kv-survey p4]",
+            "5 allocated parking spaces (total) [syn-kv-survey p1]"
+          ],
+          "recommended_fact_id": "d75b0e65-645b-5044-ada0-07fbcc959b98",
+          "recommendation_reason": "Highest authority: measured_survey (tier 3, 2026-09-18) over tier 5.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "D02",
+          "type": "version_supersession",
+          "field": "transaction_type",
+          "unit_id": "kelso-villa-ba1-3au:whole",
+          "scope": [
+            "whole"
+          ],
+          "fact_ids": [
+            "1d157e4b-2590-5d38-ba20-10ad505f9dd2",
+            "9bfd3dc2-bff8-593b-b8c2-1ab11694ec80",
+            "cb9b13d8-fbbd-5ad2-a155-5da83bf4a791"
+          ],
+          "values": [
+            "For sale [carterjonas-f8692efa p1]",
+            "For sale or to let [carterjonas-f8692efa p1]",
+            "To let [carterjonas-98889981 p1]"
+          ],
+          "recommended_fact_id": "1d157e4b-2590-5d38-ba20-10ad505f9dd2",
+          "recommendation_reason": "Same authority tier (5): newest document wins (particulars, 2026-10-16).",
+          "requires_human": true,
+          "status": "open"
+        }
+      ]
+    },
+    "59-st-huberts-close": {
+      "development_id": "st-huberts-close-gerrards-cross",
+      "documents": [
+        {
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "issuer_org": "Strutt & Parker",
+          "doc_date": "2026-04",
+          "doc_date_source": "printed",
+          "page_count": 3,
+          "unit_id": "st-huberts-close-gerrards-cross:no-59"
+        },
+        {
+          "doc_id": "syn-shc59-price",
+          "doc_type": "developer_instruction",
+          "authority_tier": 4,
+          "issuer_org": "Harcourt Lane LLP",
+          "doc_date": "2026-11-03",
+          "doc_date_source": "printed",
+          "page_count": 1,
+          "unit_id": "st-huberts-close-gerrards-cross:no-59"
+        },
+        {
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "issuer_org": "Chiltern Vale Developments",
+          "doc_date": "2026-09-15",
+          "doc_date_source": "printed",
+          "page_count": 2,
+          "unit_id": "st-huberts-close-gerrards-cross:development"
+        }
+      ],
+      "facts": [
+        {
+          "id": "5c1c306b-b3cf-5a06-8038-06d913317c4c",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "bathroom_fixture",
+          "qualifier": {
+            "room": "guest_en_suite"
+          },
+          "basis": null,
+          "scope": "unit",
+          "value_raw": "guest suite benefits from an en\nsuite shower room",
+          "value": {
+            "fixture": "shower",
+            "text": "guest suite benefits from an en\nsuite shower room"
+          },
+          "display": "guest suite benefits from an en\nsuite shower room",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 2,
+          "quote": "fitted en suite bathroom. The guest suite benefits from an en suite shower room, and bedrooms three, four and five have the",
+          "quote_source": "repaired_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "ed6b57c5-5a74-542c-98c9-982bf020d865",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "bathroom_fixture",
+          "qualifier": {
+            "room": "principal_en_suite"
+          },
+          "basis": null,
+          "scope": "unit",
+          "value_raw": "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom",
+          "value": {
+            "fixture": "bath",
+            "text": "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom"
+          },
+          "display": "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 2,
+          "quote": "size principal suite complete with fitted wardrobes and a fully fitted en suite bathroom. The guest suite benefits from an en",
+          "quote_source": "repaired_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "2990e754-019f-55e9-a42a-97e485b4f9bf",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "bedrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "unit",
+          "value_raw": "five bedroom",
+          "value": {
+            "count": 5
+          },
+          "display": "5 bedrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 2,
+          "quote": "A handsome five bedroom detached",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "ef3a2e6f-0cd0-5709-8978-0880f760436f",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "whole"
+          },
+          "basis": "unspecified",
+          "scope": "whole",
+          "value_raw": "2,848 sq ft (264.6 sq m)",
+          "value": {
+            "amount": 2848.0,
+            "unit": "sq_ft"
+          },
+          "display": "2,848 sq ft (264.6 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 2848.0,
+            "sq_m": 264.6
+          },
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 2,
+          "quote": "2,848 sq ft (264.6 sq m)",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "05c361a9-5c0c-5788-bdeb-823caf621d87",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "price",
+          "qualifier": {
+            "type": "guide"
+          },
+          "basis": null,
+          "scope": "unit",
+          "value_raw": "£1,458,000",
+          "value": {
+            "amount": 1458000.0,
+            "currency": "GBP"
+          },
+          "display": "£1,458,000 guide",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 2,
+          "quote": "Guide price £1,458,000",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "4285d970-755c-59dc-85d2-f9a993282bc4",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "floor:first"
+          },
+          "basis": "unspecified",
+          "scope": "floor:first",
+          "value_raw": "1,018 sq ft (95 sq m)",
+          "value": {
+            "amount": 1018.0,
+            "unit": "sq_ft"
+          },
+          "display": "1,018 sq ft (94.6 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 1018.0,
+            "sq_m": 94.6
+          },
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 3,
+          "quote": "First Floor area 1,018 sq ft (95 sq m)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1d7b78a3-c3a4-5104-9f3f-20e478a4eea2",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "floor:ground"
+          },
+          "basis": "unspecified",
+          "scope": "floor:ground",
+          "value_raw": "1,544 sq ft (143 sq m)",
+          "value": {
+            "amount": 1544.0,
+            "unit": "sq_ft"
+          },
+          "display": "1,544 sq ft (143.4 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 1544.0,
+            "sq_m": 143.4
+          },
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 3,
+          "quote": "Ground Floor internal area 1,544 sq ft (143 sq m)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "cd73d365-385d-53a8-9d29-33b1732373e5",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "part:garage"
+          },
+          "basis": "unspecified",
+          "scope": "part:garage",
+          "value_raw": "286 sq ft (27 sq m)",
+          "value": {
+            "amount": 286.0,
+            "unit": "sq_ft"
+          },
+          "display": "286 sq ft (26.6 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 286.0,
+            "sq_m": 26.6
+          },
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 3,
+          "quote": "Garage internal area 286 sq ft (27 sq m)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "5cdb5b3c-3efc-5138-a4cd-db7b624d3d66",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "unspecified",
+            "scope": "whole"
+          },
+          "basis": "unspecified",
+          "scope": "whole",
+          "value_raw": "2,848 sq ft (265 sq m)",
+          "value": {
+            "amount": 2848.0,
+            "unit": "sq_ft"
+          },
+          "display": "2,848 sq ft (264.6 sq m) [basis not stated]",
+          "normalised": {
+            "sq_ft": 2848.0,
+            "sq_m": 264.6
+          },
+          "doc_error": false,
+          "doc_id": "struttparker-a45c02cc",
+          "doc_type": "particulars",
+          "authority_tier": 5,
+          "doc_date": "2026-04",
+          "issuer": "Strutt & Parker",
+          "page": 3,
+          "quote": "Total internal area 2,848 sq ft (265 sq m)",
+          "quote_source": "ocr",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "e38f7929-50a2-5092-8f79-9316416c9bf4",
+          "unit_id": "st-huberts-close-gerrards-cross:development",
+          "field": "bathroom_fixture",
+          "qualifier": {
+            "room": "en_suite_all"
+          },
+          "basis": null,
+          "scope": "development",
+          "value_raw": "All en-suites are fitted with walk-in showers",
+          "value": {
+            "fixture": "shower",
+            "text": "All en-suites are fitted with walk-in showers"
+          },
+          "display": "All en-suites are fitted with walk-in showers",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 1,
+          "quote": "All en-suites are fitted with walk-in showers with low-profile trays and glass screens. Exception:",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "277c1fad-2a26-5df0-9afd-66d4477ad37e",
+          "unit_id": "st-huberts-close-gerrards-cross:type-d",
+          "field": "bathroom_fixture",
+          "qualifier": {
+            "room": "principal_en_suite"
+          },
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "Type D: principal en-suite with freestanding bath and separate shower",
+          "value": {
+            "fixture": "both",
+            "text": "Type D: principal en-suite with freestanding bath and separate shower"
+          },
+          "display": "Type D: principal en-suite with freestanding bath and separate shower",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "Type D: principal en-suite with freestanding bath and separate shower",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "64452426-9de6-5898-bd3b-d98e6740173a",
+          "unit_id": "st-huberts-close-gerrards-cross:type-a",
+          "field": "bathrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "2",
+          "value": {
+            "count": 2
+          },
+          "display": "2 bathrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "A The Bulstrode 3 2 2 Single 1,420",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "01ecce2f-5ceb-5724-aac1-b2b5214b0a4b",
+          "unit_id": "st-huberts-close-gerrards-cross:type-b",
+          "field": "bathrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "2",
+          "value": {
+            "count": 2
+          },
+          "display": "2 bathrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "B The Chalfont 4 2 2 Single 1,760",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "55e59bd1-7243-54e4-a084-89bef065c2d3",
+          "unit_id": "st-huberts-close-gerrards-cross:type-c",
+          "field": "bathrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "2",
+          "value": {
+            "count": 2
+          },
+          "display": "2 bathrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "C The Denham 4 2 2 Double 2,098",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "5dad7fa9-80a9-5cd8-9ab0-3be04106f477",
+          "unit_id": "st-huberts-close-gerrards-cross:type-d",
+          "field": "bathrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "3",
+          "value": {
+            "count": 3
+          },
+          "display": "3 bathrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "D The Fulmer 4 3 3 Double 2,512",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "d1c5865a-0a9a-5e0f-95c3-d7bf8d0ac3ff",
+          "unit_id": "st-huberts-close-gerrards-cross:type-e",
+          "field": "bathrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "3",
+          "value": {
+            "count": 3
+          },
+          "display": "3 bathrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "E The Hedgerley 5 3 5 Double 2,848",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "14c87de9-1f6b-5ba3-bdf1-9a369c2c355b",
+          "unit_id": "st-huberts-close-gerrards-cross:type-a",
+          "field": "bedrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "3",
+          "value": {
+            "count": 3
+          },
+          "display": "3 bedrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "A The Bulstrode 3 2 2 Single 1,420",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "db603e3f-56f7-5505-b4cb-31429cf30785",
+          "unit_id": "st-huberts-close-gerrards-cross:type-b",
+          "field": "bedrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "4",
+          "value": {
+            "count": 4
+          },
+          "display": "4 bedrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "B The Chalfont 4 2 2 Single 1,760",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "4f83fc4c-a914-542c-bebb-c948b40b34df",
+          "unit_id": "st-huberts-close-gerrards-cross:type-c",
+          "field": "bedrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "4",
+          "value": {
+            "count": 4
+          },
+          "display": "4 bedrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "C The Denham 4 2 2 Double 2,098",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "d0aae6fc-0d23-5978-9913-e3c57b9c5b07",
+          "unit_id": "st-huberts-close-gerrards-cross:type-d",
+          "field": "bedrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "4",
+          "value": {
+            "count": 4
+          },
+          "display": "4 bedrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "D The Fulmer 4 3 3 Double 2,512",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "1899ada4-8d1e-5d7d-a2f1-4a7c585ac50e",
+          "unit_id": "st-huberts-close-gerrards-cross:type-e",
+          "field": "bedrooms",
+          "qualifier": {},
+          "basis": null,
+          "scope": "house_type",
+          "value_raw": "5",
+          "value": {
+            "count": 5
+          },
+          "display": "5 bedrooms",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "E The Hedgerley 5 3 5 Double 2,848",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "5fb5c119-ff0d-5195-91a2-74d4f72926fb",
+          "unit_id": "st-huberts-close-gerrards-cross:type-a",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "house_type:a"
+          },
+          "basis": "GIA",
+          "scope": "house_type:a",
+          "value_raw": "1,420",
+          "value": {
+            "amount": 1420.0,
+            "unit": "sq_ft"
+          },
+          "display": "1,420 sq ft (131.9 sq m) GIA",
+          "normalised": {
+            "sq_ft": 1420.0,
+            "sq_m": 131.9
+          },
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "A The Bulstrode 3 2 2 Single 1,420",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "892e360c-1718-5d8e-ba5d-b6fea2601aee",
+          "unit_id": "st-huberts-close-gerrards-cross:type-b",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "house_type:b"
+          },
+          "basis": "GIA",
+          "scope": "house_type:b",
+          "value_raw": "1,760",
+          "value": {
+            "amount": 1760.0,
+            "unit": "sq_ft"
+          },
+          "display": "1,760 sq ft (163.5 sq m) GIA",
+          "normalised": {
+            "sq_ft": 1760.0,
+            "sq_m": 163.5
+          },
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "B The Chalfont 4 2 2 Single 1,760",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "6e43c315-03b6-5f7f-a083-49bcb81d95f7",
+          "unit_id": "st-huberts-close-gerrards-cross:type-c",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "house_type:c"
+          },
+          "basis": "GIA",
+          "scope": "house_type:c",
+          "value_raw": "2,098",
+          "value": {
+            "amount": 2098.0,
+            "unit": "sq_ft"
+          },
+          "display": "2,098 sq ft (194.9 sq m) GIA",
+          "normalised": {
+            "sq_ft": 2098.0,
+            "sq_m": 194.9
+          },
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "C The Denham 4 2 2 Double 2,098",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "b7758eaa-6f90-534f-9ac0-35eebf70afb3",
+          "unit_id": "st-huberts-close-gerrards-cross:type-d",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "house_type:d"
+          },
+          "basis": "GIA",
+          "scope": "house_type:d",
+          "value_raw": "2,512",
+          "value": {
+            "amount": 2512.0,
+            "unit": "sq_ft"
+          },
+          "display": "2,512 sq ft (233.4 sq m) GIA",
+          "normalised": {
+            "sq_ft": 2512.0,
+            "sq_m": 233.4
+          },
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "D The Fulmer 4 3 3 Double 2,512",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "5e6fc581-55c8-5b84-827e-5bf54b7627b1",
+          "unit_id": "st-huberts-close-gerrards-cross:type-e",
+          "field": "floor_area",
+          "qualifier": {
+            "basis": "GIA",
+            "scope": "house_type:e"
+          },
+          "basis": "GIA",
+          "scope": "house_type:e",
+          "value_raw": "2,848",
+          "value": {
+            "amount": 2848.0,
+            "unit": "sq_ft"
+          },
+          "display": "2,848 sq ft (264.6 sq m) GIA",
+          "normalised": {
+            "sq_ft": 2848.0,
+            "sq_m": 264.6
+          },
+          "doc_error": false,
+          "doc_id": "syn-shc-finishes",
+          "doc_type": "schedule_of_finishes",
+          "authority_tier": 3,
+          "doc_date": "2026-09-15",
+          "issuer": "Chiltern Vale Developments",
+          "page": 2,
+          "quote": "E The Hedgerley 5 3 5 Double 2,848",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        },
+        {
+          "id": "3ef5bc75-5fe8-5911-9168-88a1a96bab4a",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "field": "price",
+          "qualifier": {
+            "type": "guide"
+          },
+          "basis": null,
+          "scope": "unit",
+          "value_raw": "£1,395,000",
+          "value": {
+            "amount": 1395000.0,
+            "currency": "GBP"
+          },
+          "display": "£1,395,000 guide",
+          "normalised": null,
+          "doc_error": false,
+          "doc_id": "syn-shc59-price",
+          "doc_type": "developer_instruction",
+          "authority_tier": 4,
+          "doc_date": "2026-11-03",
+          "issuer": "Harcourt Lane LLP",
+          "page": 1,
+          "quote": "£1,395,000",
+          "quote_source": "pdf_text",
+          "extraction_method": "regex",
+          "status": "accepted"
+        }
+      ],
+      "contradictions": [
+        {
+          "id": "C09",
+          "type": "version_supersession",
+          "field": "price",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59",
+          "scope": [
+            "no-59"
+          ],
+          "fact_ids": [
+            "05c361a9-5c0c-5788-bdeb-823caf621d87",
+            "3ef5bc75-5fe8-5911-9168-88a1a96bab4a"
+          ],
+          "values": [
+            "£1,458,000 guide [struttparker-a45c02cc p2]",
+            "£1,395,000 guide [syn-shc59-price p1]"
+          ],
+          "recommended_fact_id": "3ef5bc75-5fe8-5911-9168-88a1a96bab4a",
+          "recommendation_reason": "Highest authority: developer_instruction (tier 4, 2026-11-03) over tier 5.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C10",
+          "type": "scope_difference",
+          "field": "bathroom_fixture",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59 vs development",
+          "scope": [
+            "development",
+            "no-59"
+          ],
+          "fact_ids": [
+            "e38f7929-50a2-5092-8f79-9316416c9bf4",
+            "ed6b57c5-5a74-542c-98c9-982bf020d865"
+          ],
+          "values": [
+            "All en-suites are fitted with walk-in showers [syn-shc-finishes p1]",
+            "principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom [struttparker-a45c02cc p2]"
+          ],
+          "recommended_fact_id": null,
+          "recommendation_reason": "Different scopes or bases: keep both, each labelled with its own scope.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "C11",
+          "type": "plot_or_type_variation",
+          "field": "bathroom_fixture",
+          "unit_id": "st-huberts-close-gerrards-cross:no-59 (type E) vs plots 53/57 (type D)",
+          "scope": [
+            "type-a",
+            "type-b",
+            "type-c",
+            "type-d"
+          ],
+          "fact_ids": [
+            "14c87de9-1f6b-5ba3-bdf1-9a369c2c355b",
+            "277c1fad-2a26-5df0-9afd-66d4477ad37e",
+            "4f83fc4c-a914-542c-bebb-c948b40b34df",
+            "d0aae6fc-0d23-5978-9913-e3c57b9c5b07",
+            "db603e3f-56f7-5505-b4cb-31429cf30785"
+          ],
+          "values": [
+            "3 bedrooms [syn-shc-finishes p2]",
+            "Type D: principal en-suite with freestanding bath and separate shower [syn-shc-finishes p2]",
+            "4 bedrooms [syn-shc-finishes p2]",
+            "4 bedrooms [syn-shc-finishes p2]",
+            "4 bedrooms [syn-shc-finishes p2]"
+          ],
+          "recommended_fact_id": null,
+          "recommendation_reason": "Different scopes or bases: keep both, each labelled with its own scope.",
+          "requires_human": true,
+          "status": "open"
+        },
+        {
+          "id": "D03",
+          "type": "scope_difference",
+          "field": "bathroom_fixture",
+          "unit_id": "st-huberts-close-gerrards-cross:type-d vs st-huberts-close-gerrards-cross:development",
+          "scope": [
+            "development",
+            "type-d"
+          ],
+          "fact_ids": [
+            "277c1fad-2a26-5df0-9afd-66d4477ad37e",
+            "e38f7929-50a2-5092-8f79-9316416c9bf4"
+          ],
+          "values": [
+            "Type D: principal en-suite with freestanding bath and separate shower [syn-shc-finishes p2]",
+            "All en-suites are fitted with walk-in showers [syn-shc-finishes p1]"
+          ],
+          "recommended_fact_id": null,
+          "recommendation_reason": "Different scopes or bases: keep both, each labelled with its own scope.",
+          "requires_human": true,
+          "status": "open"
+        }
+      ]
+    }
+  }
+}

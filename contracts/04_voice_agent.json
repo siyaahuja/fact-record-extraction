@@ -1,0 +1,1022 @@
+{
+  "contract": "04_voice_agent",
+  "version": 1,
+  "rules": [
+    "Only state facts listed under 'statements'; cite the document when asked.",
+    "Never state a value for a field in 'do_not_state'; use the safe phrasing instead."
+  ],
+  "units": {
+    "kelso-villa-ba1-3au:first": {
+      "development": "kelso-villa",
+      "statements": [
+        {
+          "field": "floor_area",
+          "scope": "floor:first",
+          "say": "Floor area: 687 sq ft (63.8 sq m) GIA (floor first), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "07e5ef12-3892-5064-843b-c41ce8d1bcda",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "First Floor 47.9 516 63.8 687",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:first",
+          "say": "Floor area: 516 sq ft (47.9 sq m) NIA (floor first), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "d9e449af-0610-5272-b137-ccfcf7e34e59",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "First Floor 47.9 516 63.8 687",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:first",
+          "say": "Floor area: 687 sq ft (63.8 sq m) GIA (floor first), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "aa3ef13a-a9e8-5f2c-a689-8ae40e7e6fcb",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 3,
+            "quote": "NIA 47.9 m² (516 sq ft) GIA 63.8 m² (687 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:first",
+          "say": "Floor area: 516 sq ft (47.9 sq m) NIA (floor first), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "65d6d114-9f2a-5a08-8aea-2191c04c7358",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 3,
+            "quote": "NIA 47.9 m² (516 sq ft) GIA 63.8 m² (687 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "kelso-villa-ba1-3au:ground": {
+      "development": "kelso-villa",
+      "statements": [
+        {
+          "field": "floor_area",
+          "scope": "floor:ground",
+          "say": "Floor area: 693 sq ft (64.4 sq m) GIA (floor ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "5fb6ac32-e611-5fe2-ab61-7cb0bb70cb30",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Ground Floor 48.6 523 64.4 693",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:ground",
+          "say": "Floor area: 523 sq ft (48.6 sq m) NIA (floor ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "e80e65e4-838d-5aab-adb7-f3b81235ff4f",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Ground Floor 48.6 523 64.4 693",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:ground",
+          "say": "Floor area: 693 sq ft (64.4 sq m) GIA (floor ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "d2dfba70-8d82-5df2-b1c0-ae528f4b13af",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 2,
+            "quote": "NIA 48.6 m² (523 sq ft) GIA 64.4 m² (693 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:ground",
+          "say": "Floor area: 523 sq ft (48.6 sq m) NIA (floor ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "b0189861-bd53-589b-820b-62dd28d4b136",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 2,
+            "quote": "NIA 48.6 m² (523 sq ft) GIA 64.4 m² (693 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "kelso-villa-ba1-3au:lower-ground": {
+      "development": "kelso-villa",
+      "statements": [
+        {
+          "field": "availability",
+          "scope": "floor:lower_ground",
+          "say": "Availability: available (floor lower ground), per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "4a2be105-69be-5f37-b9fa-bf40e63846bc",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "TO LET—LOWER GROUND FLOOR",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:lower_ground",
+          "say": "Floor area: 468 sq ft (43.5 sq m) [basis not stated] (floor lower ground), per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "92011475-27df-5055-b42b-28543434f390",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "468 Sq Ft (43.45 Sq M)",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:lower_ground",
+          "say": "Floor area: 468 sq ft (43.5 sq m) [basis not stated] (floor lower ground), per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "00446071-64aa-59e3-aa43-53e53eb0b02c",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "Lower Floor 43.45 468",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "rent",
+          "scope": "unit",
+          "say": "Rent: £9,400 per annum, per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "666e7cb9-9d75-5ffa-8f86-af6b4660d87a",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "£9,400 per annum, exclusive for each floor. One",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:lower_ground",
+          "say": "Floor area: 656 sq ft (60.9 sq m) GIA (floor lower ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "3b6f02e2-94af-5578-8894-bf0bb24cc559",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Lower Ground Floor 42.8 461 60.9 656",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:lower_ground",
+          "say": "Floor area: 461 sq ft (42.8 sq m) NIA (floor lower ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "0bc47591-6eb3-59dd-85c3-87eb82db29d2",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Lower Ground Floor 42.8 461 60.9 656",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:lower_ground",
+          "say": "Floor area: 656 sq ft (60.9 sq m) GIA (floor lower ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "8d1f5b29-6d24-5484-9ebe-e53e78869a28",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 2,
+            "quote": "NIA 42.8 m² (461 sq ft) GIA 60.9 m² (656 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:lower_ground",
+          "say": "Floor area: 461 sq ft (42.8 sq m) NIA (floor lower ground), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "da591ceb-e55d-526a-84d1-165bf4217424",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 2,
+            "quote": "NIA 42.8 m² (461 sq ft) GIA 60.9 m² (656 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "kelso-villa-ba1-3au:second": {
+      "development": "kelso-villa",
+      "statements": [
+        {
+          "field": "floor_area",
+          "scope": "floor:second",
+          "say": "Floor area: 636 sq ft (59.1 sq m) GIA (floor second), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "ccc8e212-03fc-5b97-b048-25bcfe5c3c1b",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Second Floor 38.3 412 59.1 636",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:second",
+          "say": "Floor area: 412 sq ft (38.3 sq m) NIA (floor second), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "32b6c039-5cc6-502c-96ba-366d75336f6b",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Second Floor 38.3 412 59.1 636",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:second",
+          "say": "Floor area: 636 sq ft (59.1 sq m) GIA (floor second), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "78c5d8a7-5cb3-5114-8fba-69c6f1cb143f",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 3,
+            "quote": "NIA 38.3 m² (412 sq ft) GIA 59.1 m² (636 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:second",
+          "say": "Floor area: 412 sq ft (38.3 sq m) NIA (floor second), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "14697d48-1d30-55c4-a218-f1cc0e75553f",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 3,
+            "quote": "NIA 38.3 m² (412 sq ft) GIA 59.1 m² (636 sq ft)",
+            "doc_date": "2026-09-18"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "kelso-villa-ba1-3au:whole": {
+      "development": "kelso-villa",
+      "statements": [
+        {
+          "field": "parking",
+          "scope": "per_floor",
+          "say": "Parking: 1 parking space (per floor) (per floor), per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "1263ffde-b1be-5498-ac9b-8d5fcbae0e6f",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "Parking on site (one space per floor)",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "tenure",
+          "scope": "building",
+          "say": "Tenure: Freehold, per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "547eeab4-6102-5c05-9a44-614b42f340a1",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "To Let (Freehold Sale may be con-",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "parking",
+          "scope": "per_floor",
+          "say": "Parking: 1 parking space (per floor) (per floor), per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "19a14449-27c2-5495-b0a8-52a14b92b6e8",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "are with the building and one space is available per",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "tenure",
+          "scope": "building",
+          "say": "Tenure: Freehold, per the particulars dated 2026-04-13.",
+          "citation": {
+            "fact_id": "a57ff0ac-e875-5feb-85d0-2670fbe64fb2",
+            "doc_id": "carterjonas-98889981",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "Alternatively Freehold offers will be considered at",
+            "doc_date": "2026-04-13"
+          }
+        },
+        {
+          "field": "listed_status",
+          "scope": "building",
+          "say": "Listing: Grade II listed, per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "1018d53a-7633-53c1-ac2b-cfaa147a4b25",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "Grade II Listed.",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "tenure",
+          "scope": "building",
+          "say": "Tenure: Freehold, per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "f52e9778-bf1a-54c0-b1a9-da9767172cc3",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 1,
+            "quote": "Freehold",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "whole",
+          "say": "Floor area: 1,991 sq ft (185.0 sq m) NIA, per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "b8dda446-e85b-5fc5-86c2-3dc9c713d04c",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "Total 185 1,990",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "parking",
+          "scope": "per_floor",
+          "say": "Parking: 1 parking space (per floor) (per floor), per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "8c7c0486-d0a8-5cdf-b407-5e6aed49853d",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "are with the building and one space is available per",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "parking",
+          "scope": "total",
+          "say": "Parking: 6 parking spaces (total) (total), per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "2918a729-e805-5bf6-b45d-6e83ebcc9bcb",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "es within a courtyard setting. Six parking spaces",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "price",
+          "scope": "building",
+          "say": "Price: £600,000 guide, per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "1ad0bdb9-722a-5485-8ccf-55b31dc8caa2",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "£600,000 Guide Price",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "price",
+          "scope": "building",
+          "say": "Price: £600,000 offers in region, per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "1d503c32-d1a9-56da-a254-33b5a164d5e6",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "building at £600,000, subject to existing tenan-",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "tenure",
+          "scope": "building",
+          "say": "Tenure: Freehold, per the particulars dated 2026-10-16.",
+          "citation": {
+            "fact_id": "7f7eccde-09ff-585d-823f-43b91ba023de",
+            "doc_id": "carterjonas-f8692efa",
+            "doc_type": "particulars",
+            "issuer": "Carter Jonas",
+            "page": 2,
+            "quote": "Freehold offers will be considered for the whole",
+            "doc_date": "2026-10-16"
+          }
+        },
+        {
+          "field": "epc_rating",
+          "scope": "building",
+          "say": "EPC rating: EPC C (58), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "fb3268f2-a044-5b08-9b87-243ecf399653",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "9417-3082-6651-2049-7735, dated 2 September 2026) records an asset rating of 58, band C, and a total useful floor area of",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "whole",
+          "say": "Floor area: 2,573 sq ft (239.0 sq m) EPC, per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "81a3f0d3-8e57-5453-98b3-46fb8efdf7f3",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "239 m². EPC floor area is calculated on its own basis and is not comparable with the NIA or GIA above.",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "whole",
+          "say": "Floor area: 2,672 sq ft (248.2 sq m) GIA, per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "7cec1cef-05e5-5d79-94b4-9846920effb2",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Total (all floors) 177.6 1,912 248.2 2,672",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "whole",
+          "say": "Floor area: 1,912 sq ft (177.6 sq m) NIA, per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "123f9906-fd4e-59f7-82ac-17b45c66693b",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Total (all floors) 177.6 1,912 248.2 2,672",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "listed_status",
+          "scope": "building",
+          "say": "Listing: Grade II listed, per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "c1e672bc-1c10-5ade-ab10-026f0b31fb6d",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Schedule of areas: Grade II listed office building, four storeys (lower ground to second floor)",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "parking",
+          "scope": "total",
+          "say": "Parking: 5 allocated parking spaces (total) (total), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "d75b0e65-645b-5044-ada0-07fbcc959b98",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Parking. The rear courtyard is lined for six bays. On the date of survey five (5) bays (1 to 5) were in use as allocated parking;",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "parking",
+          "scope": "total",
+          "say": "Parking: 6 parking spaces (total) (total), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "cf8bde92-cf26-5461-962f-69c440f20b96",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 1,
+            "quote": "Parking. The rear courtyard is lined for six bays. On the date of survey five (5) bays (1 to 5) were in use as allocated parking;",
+            "doc_date": "2026-09-18"
+          }
+        },
+        {
+          "field": "parking",
+          "scope": "total",
+          "say": "Parking: 5 allocated parking spaces (total) (total), per the measured survey dated 2026-09-18.",
+          "citation": {
+            "fact_id": "448ac4a4-9794-55a0-be45-a64b3eaf6573",
+            "doc_id": "syn-kv-survey",
+            "doc_type": "measured_survey",
+            "issuer": "Holloway & Reid",
+            "page": 4,
+            "quote": "Allocated parking bays: 5",
+            "doc_date": "2026-09-18"
+          }
+        }
+      ],
+      "do_not_state": [
+        {
+          "field": "parking",
+          "contradiction_id": "D01",
+          "type": "version_supersession",
+          "conflicting_values": [
+            "6 parking spaces (total) [carterjonas-98889981 p2]",
+            "5 allocated parking spaces (total) [syn-kv-survey p4]",
+            "5 allocated parking spaces (total) [syn-kv-survey p1]"
+          ],
+          "safe_phrasing": "The parking allocation is being confirmed."
+        },
+        {
+          "field": "transaction_type",
+          "contradiction_id": "D02",
+          "type": "version_supersession",
+          "conflicting_values": [
+            "For sale [carterjonas-f8692efa p1]",
+            "For sale or to let [carterjonas-f8692efa p1]",
+            "To let [carterjonas-98889981 p1]"
+          ],
+          "safe_phrasing": "Whether it is for sale or to let is being confirmed with the agent."
+        }
+      ]
+    },
+    "st-huberts-close-gerrards-cross:development": {
+      "development": "59-st-huberts-close",
+      "statements": [],
+      "do_not_state": [
+        {
+          "field": "bathroom_fixture",
+          "contradiction_id": "D03",
+          "type": "scope_difference",
+          "conflicting_values": [
+            "Type D: principal en-suite with freestanding bath and separate shower [syn-shc-finishes p2]",
+            "All en-suites are fitted with walk-in showers [syn-shc-finishes p1]"
+          ],
+          "safe_phrasing": "The bathroom specification for this home is being confirmed."
+        }
+      ]
+    },
+    "st-huberts-close-gerrards-cross:no-59": {
+      "development": "59-st-huberts-close",
+      "statements": [
+        {
+          "field": "bathroom_fixture",
+          "scope": "unit",
+          "say": "Bathrooms: guest suite benefits from an en\nsuite shower room, per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "5c1c306b-b3cf-5a06-8038-06d913317c4c",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 2,
+            "quote": "fitted en suite bathroom. The guest suite benefits from an en suite shower room, and bedrooms three, four and five have the",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "bathroom_fixture",
+          "scope": "unit",
+          "say": "Bathrooms: principal suite complete with fitted wardrobes and a fully\nfitted en suite bathroom, per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "ed6b57c5-5a74-542c-98c9-982bf020d865",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 2,
+            "quote": "size principal suite complete with fitted wardrobes and a fully fitted en suite bathroom. The guest suite benefits from an en",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "bedrooms",
+          "scope": "unit",
+          "say": "Bedrooms: 5 bedrooms, per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "2990e754-019f-55e9-a42a-97e485b4f9bf",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 2,
+            "quote": "A handsome five bedroom detached",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "whole",
+          "say": "Floor area: 2,848 sq ft (264.6 sq m) [basis not stated], per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "ef3a2e6f-0cd0-5709-8978-0880f760436f",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 2,
+            "quote": "2,848 sq ft (264.6 sq m)",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:first",
+          "say": "Floor area: 1,018 sq ft (94.6 sq m) [basis not stated] (floor first), per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "4285d970-755c-59dc-85d2-f9a993282bc4",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 3,
+            "quote": "First Floor area 1,018 sq ft (95 sq m)",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "floor:ground",
+          "say": "Floor area: 1,544 sq ft (143.4 sq m) [basis not stated] (floor ground), per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "1d7b78a3-c3a4-5104-9f3f-20e478a4eea2",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 3,
+            "quote": "Ground Floor internal area 1,544 sq ft (143 sq m)",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "part:garage",
+          "say": "Floor area: 286 sq ft (26.6 sq m) [basis not stated] (part garage), per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "cd73d365-385d-53a8-9d29-33b1732373e5",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 3,
+            "quote": "Garage internal area 286 sq ft (27 sq m)",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "whole",
+          "say": "Floor area: 2,848 sq ft (264.6 sq m) [basis not stated], per the particulars dated 2026-04.",
+          "citation": {
+            "fact_id": "5cdb5b3c-3efc-5138-a4cd-db7b624d3d66",
+            "doc_id": "struttparker-a45c02cc",
+            "doc_type": "particulars",
+            "issuer": "Strutt & Parker",
+            "page": 3,
+            "quote": "Total internal area 2,848 sq ft (265 sq m)",
+            "doc_date": "2026-04"
+          }
+        },
+        {
+          "field": "price",
+          "scope": "unit",
+          "say": "Price: £1,395,000 guide, per the developer instruction dated 2026-11-03.",
+          "citation": {
+            "fact_id": "3ef5bc75-5fe8-5911-9168-88a1a96bab4a",
+            "doc_id": "syn-shc59-price",
+            "doc_type": "developer_instruction",
+            "issuer": "Harcourt Lane LLP",
+            "page": 1,
+            "quote": "£1,395,000",
+            "doc_date": "2026-11-03"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "st-huberts-close-gerrards-cross:type-a": {
+      "development": "59-st-huberts-close",
+      "statements": [
+        {
+          "field": "bathrooms",
+          "scope": "house_type",
+          "say": "Bathrooms: 2 bathrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "64452426-9de6-5898-bd3b-d98e6740173a",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "A The Bulstrode 3 2 2 Single 1,420",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "bedrooms",
+          "scope": "house_type",
+          "say": "Bedrooms: 3 bedrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "14c87de9-1f6b-5ba3-bdf1-9a369c2c355b",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "A The Bulstrode 3 2 2 Single 1,420",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "house_type:a",
+          "say": "Floor area: 1,420 sq ft (131.9 sq m) GIA (house type a), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "5fb5c119-ff0d-5195-91a2-74d4f72926fb",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "A The Bulstrode 3 2 2 Single 1,420",
+            "doc_date": "2026-09-15"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "st-huberts-close-gerrards-cross:type-b": {
+      "development": "59-st-huberts-close",
+      "statements": [
+        {
+          "field": "bathrooms",
+          "scope": "house_type",
+          "say": "Bathrooms: 2 bathrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "01ecce2f-5ceb-5724-aac1-b2b5214b0a4b",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "B The Chalfont 4 2 2 Single 1,760",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "bedrooms",
+          "scope": "house_type",
+          "say": "Bedrooms: 4 bedrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "db603e3f-56f7-5505-b4cb-31429cf30785",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "B The Chalfont 4 2 2 Single 1,760",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "house_type:b",
+          "say": "Floor area: 1,760 sq ft (163.5 sq m) GIA (house type b), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "892e360c-1718-5d8e-ba5d-b6fea2601aee",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "B The Chalfont 4 2 2 Single 1,760",
+            "doc_date": "2026-09-15"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "st-huberts-close-gerrards-cross:type-c": {
+      "development": "59-st-huberts-close",
+      "statements": [
+        {
+          "field": "bathrooms",
+          "scope": "house_type",
+          "say": "Bathrooms: 2 bathrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "55e59bd1-7243-54e4-a084-89bef065c2d3",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "C The Denham 4 2 2 Double 2,098",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "bedrooms",
+          "scope": "house_type",
+          "say": "Bedrooms: 4 bedrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "4f83fc4c-a914-542c-bebb-c948b40b34df",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "C The Denham 4 2 2 Double 2,098",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "house_type:c",
+          "say": "Floor area: 2,098 sq ft (194.9 sq m) GIA (house type c), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "6e43c315-03b6-5f7f-a083-49bcb81d95f7",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "C The Denham 4 2 2 Double 2,098",
+            "doc_date": "2026-09-15"
+          }
+        }
+      ],
+      "do_not_state": []
+    },
+    "st-huberts-close-gerrards-cross:type-d": {
+      "development": "59-st-huberts-close",
+      "statements": [
+        {
+          "field": "bathrooms",
+          "scope": "house_type",
+          "say": "Bathrooms: 3 bathrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "5dad7fa9-80a9-5cd8-9ab0-3be04106f477",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "D The Fulmer 4 3 3 Double 2,512",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "bedrooms",
+          "scope": "house_type",
+          "say": "Bedrooms: 4 bedrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "d0aae6fc-0d23-5978-9913-e3c57b9c5b07",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "D The Fulmer 4 3 3 Double 2,512",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "house_type:d",
+          "say": "Floor area: 2,512 sq ft (233.4 sq m) GIA (house type d), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "b7758eaa-6f90-534f-9ac0-35eebf70afb3",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "D The Fulmer 4 3 3 Double 2,512",
+            "doc_date": "2026-09-15"
+          }
+        }
+      ],
+      "do_not_state": [
+        {
+          "field": "bathroom_fixture",
+          "contradiction_id": "D03",
+          "type": "scope_difference",
+          "conflicting_values": [
+            "Type D: principal en-suite with freestanding bath and separate shower [syn-shc-finishes p2]",
+            "All en-suites are fitted with walk-in showers [syn-shc-finishes p1]"
+          ],
+          "safe_phrasing": "The bathroom specification for this home is being confirmed."
+        }
+      ]
+    },
+    "st-huberts-close-gerrards-cross:type-e": {
+      "development": "59-st-huberts-close",
+      "statements": [
+        {
+          "field": "bathrooms",
+          "scope": "house_type",
+          "say": "Bathrooms: 3 bathrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "d1c5865a-0a9a-5e0f-95c3-d7bf8d0ac3ff",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "E The Hedgerley 5 3 5 Double 2,848",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "bedrooms",
+          "scope": "house_type",
+          "say": "Bedrooms: 5 bedrooms (house type), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "1899ada4-8d1e-5d7d-a2f1-4a7c585ac50e",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "E The Hedgerley 5 3 5 Double 2,848",
+            "doc_date": "2026-09-15"
+          }
+        },
+        {
+          "field": "floor_area",
+          "scope": "house_type:e",
+          "say": "Floor area: 2,848 sq ft (264.6 sq m) GIA (house type e), per the schedule of finishes dated 2026-09-15.",
+          "citation": {
+            "fact_id": "5e6fc581-55c8-5b84-827e-5bf54b7627b1",
+            "doc_id": "syn-shc-finishes",
+            "doc_type": "schedule_of_finishes",
+            "issuer": "Chiltern Vale Developments",
+            "page": 2,
+            "quote": "E The Hedgerley 5 3 5 Double 2,848",
+            "doc_date": "2026-09-15"
+          }
+        }
+      ],
+      "do_not_state": []
+    }
+  }
+}

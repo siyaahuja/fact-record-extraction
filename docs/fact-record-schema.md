@@ -61,7 +61,7 @@ doc_type → default authority_tier
 |---|---|
 | 1 | `title_register_current`, `lease`, `sale_contract`, `reservation_agreement`, `deed_of_grant` |
 | 2 | `land_registry_title_extract`, `epc_certificate` (`price_paid_record` is tier 2 but carries `as_at` = sale date) |
-| 3 | `signed_specification`, `schedule_of_finishes`, `measured_survey`, `floorplan_measured`, `access_statement`, `as_built_pack`, `ews1`, `building_safety_case`, `warranty_certificate`, `broadband_confirmation` |
+| 3 | `signed_specification`, `schedule_of_finishes`, `measured_survey`, `floorplan_measured`, `access_statement`, `as_built_pack`, `ews1`, `building_safety_case`, `warranty_certificate`, `broadband_confirmation`, `parking_allocation_schedule` |
 | 4 | `price_list_signed`, `developer_instruction` |
 | 5 | `brochure`, `particulars`, `floorplan_marketing` |
 | 6 | `portal_listing`, `crm_note`, `verbal_note` |
