@@ -41,7 +41,7 @@ DOC_TYPE_CUES = {
 
 MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december"
 DATE_RE = rf"(\d{{1,2}})(?:st|nd|rd|th)?\s+({MONTHS}|sept?)\.?\s+(\d{{4}})"
-NAME_RE = (r"\b(?:(\d{1,4})\s+)?((?:St\.?\s+)?[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+NAME_RE = (r"\b(?:(\d{1,4})[ ]+)?((?:St\.?[ ]+)?[A-Z][a-z]+(?:[ ]+[A-Z][a-z]+){0,3}[ ]+"
            r"(?:Close|Road|Street|Lane|Avenue|Drive|Way|Place|Gardens|Square|Crescent|Villa|House|Court|Mews|Terrace|Park))\b")
 BUILDING_SUFFIX = r"(Villa|House|Court|Mews)$"
 POSTCODE_RE = r"\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b"
@@ -162,13 +162,13 @@ def make_doc_id(path: str, sha: str, registry: dict[str, str]) -> str:
 def address_candidates(text: str) -> list[dict]:
     out = []
     for m in re.finditer(NAME_RE, text):
-        name = re.sub(r"\s+", " ", m.group(2))
+        name = m.group(2)
         after = text[m.end():m.end() + 70]
         pc = re.search(POSTCODE_RE, after)
         town = re.match(r"\s*[,\n]\s*(?:[A-Z][\w ]*(?:Road|Street|Lane)\s*[,\n]\s*)?([A-Za-z][A-Za-z ]{2,25}?)(?:\s*[,\n(]|\s+[A-Z]{1,2}\d)", after)
         out.append({
             "name": name, "number": m.group(1),
-            "postcode": pc.group(1).replace(" ", "") if pc else None,
+            "postcode": re.sub(r"\s+", " ", pc.group(1)) if pc else None,
             "town": town.group(1).strip() if town else None,
             "labelled": bool(re.search(r"(property|address)\s*:?\s*$", text[max(0, m.start() - 12):m.start()], re.I)),
         })

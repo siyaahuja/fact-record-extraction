@@ -1,0 +1,36 @@
+{
+  "description": "Hand-written golden facts for the real brochures, from values read off the PDFs. Qualifier/value entries are subset matches; numbers match within 0.5%. 'type_any' lists acceptable qualifier.type values. 'absent' means no such fact may be extracted (e.g. not printed).",
+  "facts": [
+    {"id": "KA-price", "doc_id": "carterjonas-98889981", "field": "price", "page": 2, "value": {"amount": 700000}, "type_any": ["offers_in_region", "asking", "offers_over"]},
+    {"id": "KA-rent", "doc_id": "carterjonas-98889981", "field": "rent", "page": 2, "qualifier": {"period": "annum", "per": "floor"}, "value": {"amount": 9400}},
+    {"id": "KA-tenure", "doc_id": "carterjonas-98889981", "field": "tenure", "value": {"tenure": "freehold"}},
+    {"id": "KA-transaction", "doc_id": "carterjonas-98889981", "field": "transaction_type", "value": {"type": "to_let"}},
+    {"id": "KA-area-LG-p1", "doc_id": "carterjonas-98889981", "field": "floor_area", "page": 1, "qualifier": {"basis": "unspecified", "scope": "floor:lower_ground"}, "value": {"amount": 468, "unit": "sq_ft"}, "doc_error": false},
+    {"id": "KA-area-LG-p2", "doc_id": "carterjonas-98889981", "field": "floor_area", "page": 2, "qualifier": {"basis": "unspecified", "scope": "floor:lower_ground"}, "normalised": {"sq_m": 43.5}, "doc_error": false},
+    {"id": "KA-area-185-2700-DOC-ERROR", "doc_id": "carterjonas-98889981", "field": "floor_area", "page": 2, "qualifier": {"basis": "unspecified", "scope": "whole"}, "value": {"amount": 185, "unit": "sq_m"}, "doc_error": true},
+    {"id": "KA-epc", "doc_id": "carterjonas-98889981", "field": "epc_rating", "page": 2, "value": {"band": "B"}},
+    {"id": "KA-parking-per-floor", "doc_id": "carterjonas-98889981", "field": "parking", "qualifier": {"scope": "per_floor"}, "value": {"spaces": 1}},
+    {"id": "KA-parking-total", "doc_id": "carterjonas-98889981", "field": "parking", "page": 2, "qualifier": {"scope": "total"}, "value": {"spaces": 6}},
+    {"id": "KA-no-NIA", "doc_id": "carterjonas-98889981", "field": "floor_area", "qualifier": {"basis": "NIA"}, "absent": true},
+
+    {"id": "KO-price", "doc_id": "carterjonas-f8692efa", "field": "price", "page": 2, "qualifier": {"type": "guide"}, "value": {"amount": 600000}},
+    {"id": "KO-tenure", "doc_id": "carterjonas-f8692efa", "field": "tenure", "value": {"tenure": "freehold"}},
+    {"id": "KO-transaction", "doc_id": "carterjonas-f8692efa", "field": "transaction_type", "value": {"type": "for_sale_or_to_let"}},
+    {"id": "KO-area-NIA-p1", "doc_id": "carterjonas-f8692efa", "field": "floor_area", "page": 1, "qualifier": {"basis": "NIA", "scope": "whole"}, "value": {"amount": 1990, "unit": "sq_ft"}, "doc_error": false},
+    {"id": "KO-area-GIA-p1", "doc_id": "carterjonas-f8692efa", "field": "floor_area", "page": 1, "qualifier": {"basis": "GIA", "scope": "whole"}, "value": {"amount": 2700, "unit": "sq_ft"}, "doc_error": false},
+    {"id": "KO-area-NIA-p2", "doc_id": "carterjonas-f8692efa", "field": "floor_area", "page": 2, "qualifier": {"basis": "NIA", "scope": "whole"}, "normalised": {"sq_m": 185}, "doc_error": false},
+    {"id": "KO-epc", "doc_id": "carterjonas-f8692efa", "field": "epc_rating", "page": 2, "value": {"band": "B"}},
+    {"id": "KO-parking-total", "doc_id": "carterjonas-f8692efa", "field": "parking", "page": 1, "qualifier": {"scope": "total"}, "value": {"spaces": 6}},
+    {"id": "KO-no-GIA-185", "doc_id": "carterjonas-f8692efa", "field": "floor_area", "qualifier": {"basis": "GIA"}, "normalised": {"sq_m": 185}, "absent": true},
+
+    {"id": "59-price", "doc_id": "struttparker-a45c02cc", "field": "price", "page": 2, "qualifier": {"type": "guide"}, "value": {"amount": 1458000}},
+    {"id": "59-area", "doc_id": "struttparker-a45c02cc", "field": "floor_area", "page": 2, "qualifier": {"basis": "unspecified", "scope": "whole"}, "value": {"amount": 2848, "unit": "sq_ft"}, "doc_error": false},
+    {"id": "59-bedrooms", "doc_id": "struttparker-a45c02cc", "field": "bedrooms", "value": {"count": 5}},
+    {"id": "59-no-epc", "doc_id": "struttparker-a45c02cc", "field": "epc_rating", "absent": true},
+    {"id": "59-no-tenure", "doc_id": "struttparker-a45c02cc", "field": "tenure", "absent": true}
+  ],
+  "entities": [
+    {"id": "kelso-same-building", "doc_ids": ["carterjonas-98889981", "carterjonas-f8692efa"], "same_unit": true},
+    {"id": "59-is-no-59", "doc_ids": ["struttparker-a45c02cc"], "unit_id": "st-huberts-close-gerrards-cross:no-59"}
+  ]
+}

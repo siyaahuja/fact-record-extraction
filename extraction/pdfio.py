@@ -14,7 +14,10 @@ from PIL import Image, ImageOps
 
 from . import garble
 
-OCR_VERSION = "v2"
+# One thread per tesseract process: pages are OCR'd in parallel, and OpenMP oversubscription makes it crawl.
+os.environ.setdefault("OMP_THREAD_LIMIT", "1")
+
+OCR_VERSION = "v3"
 RENDER_DPI = 150
 OCR_DPI = 300
 
@@ -63,9 +66,22 @@ class Page:
             out["pdf_text"] = self.pdf_text
         if self.garbled_ratio > 0:
             out["repaired_text"] = self.repaired_text
-        if self.ocr_text.strip():
-            out["ocr"] = self.ocr_text
+        ocr = self.residual_ocr() if self.text_status == "good" else self.ocr_text
+        if ocr.strip():
+            out["ocr"] = ocr
         return out
+
+    def residual_ocr(self) -> str:
+        """OCR lines not already in a good text layer (text inside images: floorplans, banners)."""
+        from rapidfuzz import fuzz
+        pdf = re.sub(r"[^a-z0-9]", "", self.pdf_text.lower())
+        keep = []
+        for line in self.ocr_text.splitlines():
+            sq = re.sub(r"[^a-z0-9]", "", line.lower())
+            if len(sq) < 6 or sq in pdf or fuzz.partial_ratio(sq, pdf) >= 85:
+                continue
+            keep.append(line)
+        return "\n".join(keep)
 
     def best_text(self) -> str:
         if self.text_status == "good":
@@ -139,26 +155,44 @@ def _dark_bands(gray: Image.Image, frac: float = 0.6, lum: int = 128, min_h: int
     return bands
 
 
-def _ocr(gray: Image.Image, scale: float) -> tuple[str, list[Word]]:
-    """OCR the page normally, then each full-width dark band inverted (white-on-dark banners)."""
+def _ocr(rgb: Image.Image, scale: float) -> tuple[str, list[Word]]:
+    """OCR the page in colour (greyscale makes tesseract merge page columns), skipping full-width
+    dark bands, then OCR each band inverted (white-on-dark banners) in two segmentation modes."""
     import pytesseract
 
-    texts = [pytesseract.image_to_string(gray, config="--psm 3")]
+    gray = rgb.convert("L")
+    # Banners only: a "band" taller than 20% of the page is a photo, and tesseract can hang on it.
+    bands = [(max(0, y0 - 5), min(gray.height, y1 + 5)) for y0, y1 in _dark_bands(gray) if y1 - y0 < 0.2 * gray.height]
     words: list[Word] = []
 
-    def collect(img: Image.Image, dy: int, psm: int):
-        data = pytesseract.image_to_data(img, config=f"--psm {psm}", output_type=pytesseract.Output.DICT)
+    def run(img: Image.Image, dy: int, psm: int, skip_bands: bool) -> str:
+        try:
+            data = pytesseract.image_to_data(img, config=f"--psm {psm}", output_type=pytesseract.Output.DICT, timeout=60)
+        except RuntimeError:
+            return ""
+        lines: dict[tuple, list[str]] = {}
         for i, t in enumerate(data["text"]):
-            if t.strip() and float(data["conf"][i]) > 30:
-                x, y, w, h = data["left"][i], data["top"][i] + dy, data["width"][i], data["height"][i]
+            if not t.strip():
+                continue
+            x, y, w, h = data["left"][i], data["top"][i] + dy, data["width"][i], data["height"][i]
+            if skip_bands and any(b0 <= y + h / 2 <= b1 for b0, b1 in bands):
+                continue
+            lines.setdefault((data["block_num"][i], data["par_num"][i], data["line_num"][i]), []).append(t.strip())
+            if float(data["conf"][i]) > 30:
                 words.append(Word(t.strip(), x / scale, y / scale, (x + w) / scale, (y + h) / scale))
+        out, last_block = [], None
+        for (block, _, _), ws in lines.items():
+            if last_block is not None and block != last_block:
+                out.append("")
+            out.append(" ".join(ws))
+            last_block = block
+        return "\n".join(out)
 
-    collect(gray, 0, 3)
-    for y0, y1 in _dark_bands(gray):
-        y0, y1 = max(0, y0 - 5), min(gray.height, y1 + 5)
+    texts = [run(rgb, 0, 3, True)]
+    for y0, y1 in bands:
         band = ImageOps.invert(gray.crop((0, y0, gray.width, y1)))
-        texts.append(pytesseract.image_to_string(band, config="--psm 11"))
-        collect(band, y0, 11)
+        texts.append(run(band, y0, 6, False))
+        texts.append(run(band, y0, 11, False))
     return "\n\n".join(t.strip() for t in texts if t.strip()), _dedupe(words)
 
 
@@ -205,8 +239,8 @@ def load_document(path: str, cache_dir: str = ".cache", ocr: bool = True) -> Doc
                 ocr_text, ocr_words = c["text"], [Word(**w) for w in c["words"]]
             else:
                 scale = OCR_DPI / 72
-                gray = Image.open(io.BytesIO(p.get_pixmap(dpi=OCR_DPI).tobytes("png"))).convert("L")
-                ocr_text, ocr_words = _ocr(gray, scale)
+                rgb = Image.open(io.BytesIO(p.get_pixmap(dpi=OCR_DPI).tobytes("png"))).convert("RGB")
+                ocr_text, ocr_words = _ocr(rgb, scale)
                 with open(cache, "w") as f:
                     json.dump({"text": ocr_text, "words": [w.__dict__ for w in ocr_words]}, f)
             pdf_alnum = len(re.findall(r"[A-Za-z0-9]", raw))

@@ -223,7 +223,7 @@ def extract_area(ctx: Ctx, source: str, text: str):
             spans.append((m.start(), m.end(), [(parse_number(m.group(1)), u)], m.group(0)))
     spans.sort()
     for i, (start, end, vals, raw) in enumerate(spans):
-        if re.match(AREA_EXCLUDE_AFTER, text[end:end + 60], re.I):
+        if re.match(AREA_EXCLUDE_AFTER, text[end:end + 60], re.I) or re.match(r"\s*=", text[end:end + 5]):
             continue
         if re.search(r"(?:than|from|vs\.?|versus)\s+(?:the\s+)?$", text[max(0, start - 15):start], re.I):
             continue
@@ -263,8 +263,9 @@ def _header_columns(row: Row):
             j = i - 1
             prev_x = cols[-1][1] if cols else -1
             while j >= 0 and words[j].x0 > prev_x:
+                token = words[j].text.strip("()")
                 for rx, label in BASIS_RE:
-                    if re.fullmatch(rx, words[j].text, re.I) or re.fullmatch(r"\(?(NIA|GIA|IPMS)\)?", words[j].text):
+                    if re.fullmatch(rx, token, re.I):
                         basis = label
                 if words[j].x1 < (words[i].x0 - 80):
                     break
@@ -298,7 +299,7 @@ def extract_area_tables(ctx: Ctx):
         for row in rows[hi + 1: hi + 14]:
             if row.source != header.source:
                 continue
-            if _header_columns(row):
+            if _header_columns(row) or re.search(r"[a-z]{3,}\.\s", row.text):
                 break
             cells = {}
             for ci, (x0, x1, unit, basis) in enumerate(cols):
@@ -309,7 +310,9 @@ def extract_area_tables(ctx: Ctx):
                         best = w
                 if best:
                     cells[ci] = best
-            if not cells:
+            if len(cells) < max(1, (len(cols) + 1) // 2):
+                if data_rows:
+                    break
                 continue
             label_words = [w for w in row.words if w.x0 >= table_left - 5 and w.x1 <= first_col_x0 - 2
                            and not (type_table and re.fullmatch(NUM, w.text))]
@@ -407,7 +410,7 @@ def extract_secondary(ctx: Ctx, source: str, text: str):
         n = parse_number(m.group(1))
         if n and n < 20:
             ctx.add(source, "bathrooms", {}, {"count": int(n)}, m.group(0), _line_span(text, m.start(), m.end()), confidence=0.7)
-    for m in re.finditer(r"\b(?:listed\s+grade\s+(II\*?|I|Il|\|\|)|grade\s+(II\*?|I|Il|\|\|)\s+listed)", text, re.I):
+    for m in re.finditer(r"\b(?:listed\s+grade\s+(Il|\|\||II\*?|I)\b|grade\s+(Il|\|\||II\*?|I)\s+listed)", text, re.I):
         grade = (m.group(1) or m.group(2)).replace("Il", "II").replace("||", "II")
         ctx.add(source, "listed_status", {}, {"grade": grade}, m.group(0), _line_span(text, m.start(), m.end()), confidence=0.7)
     for m in re.finditer(r"all\s+en[\s-]?suites\s+(?:are\s+)?(?:fitted\s+with\s+)?([^.]{0,40}?)(showers?|baths?)\b", text, re.I):

@@ -56,6 +56,8 @@ def _assign_unit(f: dict, doc: dict) -> None:
         floor = scope_q.split(":", 1)[1]
     if f["field"] == "rent" and not floor and q.get("per") == "floor" and doc.get("focus_floor"):
         floor = doc["focus_floor"]
+    if floor and not (base or "").endswith(":whole"):
+        floor = None
     if dev and floor:
         f["unit_id"], f["unit_hint"], f["scope"] = f"{dev}:{floor.replace('_', '-')}", f"{floor.replace('_', ' ')} floor", "unit"
     elif dev and scope_q and scope_q.startswith("house_type:"):
