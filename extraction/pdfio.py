@@ -17,7 +17,7 @@ from . import garble
 # One thread per tesseract process: pages are OCR'd in parallel, and OpenMP oversubscription makes it crawl.
 os.environ.setdefault("OMP_THREAD_LIMIT", "1")
 
-OCR_VERSION = "v3"
+OCR_VERSION = "v5"
 RENDER_DPI = 150
 OCR_DPI = 300
 
@@ -155,6 +155,26 @@ def _dark_bands(gray: Image.Image, frac: float = 0.6, lum: int = 128, min_h: int
     return bands
 
 
+def _columns(band: Image.Image, min_gap: int = 30, ink: int = 140) -> list[tuple[int, int]]:
+    """Split a banner into text columns at runs of blank pixel columns."""
+    a = np.asarray(band)[12:-12]
+    blank = (a < ink).sum(axis=0) <= 2
+    cols, start, gap = [], None, 0
+    for x, b in enumerate(list(blank) + [True] * min_gap):
+        if not b:
+            if start is None:
+                start = x
+            gap = 0
+        elif start is not None:
+            gap += 1
+            if gap >= min_gap:
+                end = x - gap + 1
+                if end - start > 20:
+                    cols.append((max(0, start - 10), min(band.width, end + 10)))
+                start, gap = None, 0
+    return cols or [(0, band.width)]
+
+
 def _ocr(rgb: Image.Image, scale: float) -> tuple[str, list[Word]]:
     """OCR the page in colour (greyscale makes tesseract merge page columns), skipping full-width
     dark bands, then OCR each band inverted (white-on-dark banners) in two segmentation modes."""
@@ -165,7 +185,7 @@ def _ocr(rgb: Image.Image, scale: float) -> tuple[str, list[Word]]:
     bands = [(max(0, y0 - 5), min(gray.height, y1 + 5)) for y0, y1 in _dark_bands(gray) if y1 - y0 < 0.2 * gray.height]
     words: list[Word] = []
 
-    def run(img: Image.Image, dy: int, psm: int, skip_bands: bool) -> str:
+    def run(img: Image.Image, dy: int, psm: int, skip_bands: bool, dx: int = 0) -> str:
         try:
             data = pytesseract.image_to_data(img, config=f"--psm {psm}", output_type=pytesseract.Output.DICT, timeout=60)
         except RuntimeError:
@@ -174,7 +194,7 @@ def _ocr(rgb: Image.Image, scale: float) -> tuple[str, list[Word]]:
         for i, t in enumerate(data["text"]):
             if not t.strip():
                 continue
-            x, y, w, h = data["left"][i], data["top"][i] + dy, data["width"][i], data["height"][i]
+            x, y, w, h = data["left"][i] + dx, data["top"][i] + dy, data["width"][i], data["height"][i]
             if skip_bands and any(b0 <= y + h / 2 <= b1 for b0, b1 in bands):
                 continue
             lines.setdefault((data["block_num"][i], data["par_num"][i], data["line_num"][i]), []).append(t.strip())
@@ -191,7 +211,8 @@ def _ocr(rgb: Image.Image, scale: float) -> tuple[str, list[Word]]:
     texts = [run(rgb, 0, 3, True)]
     for y0, y1 in bands:
         band = ImageOps.invert(gray.crop((0, y0, gray.width, y1)))
-        texts.append(run(band, y0, 6, False))
+        for x0, x1 in _columns(band):
+            texts.append(run(band.crop((x0, 0, x1, band.height)), y0, 6, False, dx=x0))
         texts.append(run(band, y0, 11, False))
     return "\n\n".join(t.strip() for t in texts if t.strip()), _dedupe(words)
 

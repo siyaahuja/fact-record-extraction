@@ -299,7 +299,7 @@ def extract_area_tables(ctx: Ctx):
         for row in rows[hi + 1: hi + 14]:
             if row.source != header.source:
                 continue
-            if _header_columns(row) or re.search(r"[a-z]{3,}\.\s", row.text):
+            if _header_columns(row) or (row.source == "pdf_text" and re.search(r"[a-z]{3,}\.\s", row.text)):
                 break
             cells = {}
             for ci, (x0, x1, unit, basis) in enumerate(cols):
@@ -311,7 +311,8 @@ def extract_area_tables(ctx: Ctx):
                 if best:
                     cells[ci] = best
             if len(cells) < max(1, (len(cols) + 1) // 2):
-                if data_rows:
+                # OCR rows interleave prose from neighbouring page columns, so only stop on PDF text.
+                if data_rows and row.source == "pdf_text":
                     break
                 continue
             label_words = [w for w in row.words if w.x0 >= table_left - 5 and w.x1 <= first_col_x0 - 2
