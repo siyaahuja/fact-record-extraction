@@ -2,7 +2,10 @@ PY ?= python3
 INPUT ?= sample_data
 OUT ?= out
 
-.PHONY: install run eval all determinism test clean
+.PHONY: install run eval all determinism test clean platform
+
+platform:
+	./agency_platform/run.sh
 
 install:
 	$(PY) -m pip install -r requirements.txt
