@@ -1,7 +1,7 @@
 """CLI.
 
   python -m extraction run  [sample_data] [--out out] [--extractor auto|rules|llm|hybrid]
-  python -m extraction eval [--out out] [--golden eval/golden_real.json] [--manifest sample_data/manifest.json]
+  python -m extraction eval [--out out] [--golden eval/golden.json] [--manifest sample_data/manifest.json]
   python -m extraction all  (run, then eval)
 """
 from __future__ import annotations
@@ -27,14 +27,15 @@ def main(argv=None) -> int:
         if name == "eval":
             p.add_argument("--out", default="out")
             p.add_argument("input", nargs="?", default="sample_data")
-        p.add_argument("--golden", default="eval/golden_real.json")
+            p.add_argument("--cache", default=".cache")
+        p.add_argument("--golden", default="eval/golden.json")
         p.add_argument("--manifest", default=None)
         p.add_argument("--contradictions", default=None)
     a = ap.parse_args(argv)
     if a.cmd in ("run", "all"):
         pipeline.run(a.input, a.out, extractor=a.extractor, cache_dir=a.cache, workers=a.workers)
     if a.cmd in ("eval", "all"):
-        return evaluate.main(a.out, a.input, a.golden, a.manifest, a.contradictions)
+        return evaluate.main(a.out, a.input, a.golden, a.manifest, a.contradictions, a.cache)
     return 0
 
 

@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 
 from rapidfuzz import fuzz
+from rapidfuzz.distance import Levenshtein
 
 from .catalogue import (AVAILABILITY, EPC_BANDS, FIELDS, PARKING_KINDS, SQ_M_TO_SQ_FT, TENURES,
                         TRANSACTION_TYPES)
@@ -35,13 +36,37 @@ def find_quote(quote: str, hay: dict[str, str]) -> tuple[str | None, str]:
     for name, h in hay.items():
         if q in h:
             return name, "exact"
-    # OCR noise ("Grade Il", "c¢.90"): accept a near-exact match on OCR text, but digits must match exactly.
-    digits = re.findall(r"\d+", q)
+    # OCR noise ("Grade Il", "c¢.90"): accept a near-exact match on OCR text, but only isolated 1-2 character
+    # slips that touch no digit, so an inserted word ("not") or a changed number never validates.
     for name in ("ocr", "layout_rows", "repaired_text"):
         h = hay.get(name)
-        if h and len(q) >= 12 and fuzz.partial_ratio(q, h) >= 92 and all(d in h for d in digits):
+        if h and len(q) >= 12 and fuzz.partial_ratio(q, h) >= 92 and _ocr_slips_only(q, h, quote):
             return name, "fuzzy"
     return None, "quote_not_found"
+
+
+def _ocr_slips_only(q: str, h: str, quote: str) -> bool:
+    al = fuzz.partial_ratio_alignment(q, h)
+    win = h[max(0, al.dest_start - 6):al.dest_end + 6]
+    ops = [op for op in Levenshtein.opcodes(q, win) if op.tag != "equal"]
+    # Window slack at either end shows up as leading/trailing inserts.
+    while ops and ops[0].tag == "insert" and ops[0].src_start == 0:
+        ops.pop(0)
+    while ops and ops[-1].tag == "insert" and ops[-1].src_start == len(q):
+        ops.pop()
+    edits = 0
+    for op in ops:
+        a, b = q[op.src_start:op.src_end], win[op.dest_start:op.dest_end]
+        if max(len(a), len(b)) > 2 or re.search(r"\d", a + b):
+            return False
+        edits += max(len(a), len(b))
+    if edits > max(2, len(q) // 12):
+        return False
+    # The aligner can scatter an inserted word into single-character edits, so check words too.
+    for w in set(re.findall(r"[a-z]{3,}", quote.lower())):
+        if w not in win and not (len(w) >= 5 and fuzz.partial_ratio(w, win) >= 80):
+            return False
+    return True
 
 
 def _numbers(s: str) -> list[float]:
