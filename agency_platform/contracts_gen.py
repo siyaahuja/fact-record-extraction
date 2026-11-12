@@ -94,7 +94,9 @@ def value_key(f: dict) -> str:
 
 
 def slot_key(f: dict) -> str:
-    q = {k: v for k, v in (f.get("qualifier") or {}).items() if k in ("basis", "scope", "type", "room", "period", "per")}
+    """What a listing line is about: price 'guide' vs 'offers' is one slot, NIA vs GIA are two."""
+    keep = ("basis", "scope", "room") + (("type",) if f["field"] == "epc_rating" else ())
+    q = {k: v for k, v in (f.get("qualifier") or {}).items() if k in keep}
     return f"{f['unit_id']}|{f['field']}|{json.dumps(q, sort_keys=True)}"
 
 
@@ -197,35 +199,61 @@ def build_resolved(extracted: dict, actions: list[dict]) -> dict:
                     (chosen if value_key(facts[fid]) == win_key else superseded).add(fid)
                 c["resolved_fact_id"] = pick
             c.update(status="resolved", resolution=mode, resolved_by=a.get("reviewer"), resolved_at=a.get("timestamp"))
-        elif len({value_key(facts[fid]) for fid in live}) < 2:
-            c.update(status="resolved", resolution="auto_rejected_competitors", resolved_fact_id=live[0] if live else None)
-            scoped_ok.update(live)
         contradictions.append(c)
 
-    blocking = defaultdict(list)
+    # A reviewer's pick wins its slot: same-slot facts with another value are superseded too.
+    slots = defaultdict(list)
+    for fid, f in facts.items():
+        slots[slot_key(f)].append(fid)
+    for fid in list(chosen):
+        win = value_key(facts[fid])
+        for other in slots[slot_key(facts[fid])]:
+            if other not in rejected and other not in chosen:
+                (chosen if value_key(facts[other]) == win else superseded).add(other)
+    superseded -= chosen
+
+    dead = rejected | superseded
     for c in contradictions:
         if c["status"] == "open":
+            live = [fid for fid in c["fact_ids"] if fid in facts and fid not in dead]
+            if len({value_key(facts[fid]) for fid in live}) < 2:
+                c.update(status="resolved", resolution="auto_no_remaining_conflict",
+                         resolved_fact_id=live[0] if len(live) == 1 else None)
+
+    hard_states = ("do_not_quote_conflicting", "do_not_quote_pending")
+    blocking = defaultdict(list)
+    for c in contradictions:
+        if c["status"] == "open" and c["agent_script_state"] in hard_states:
             for fid in c["fact_ids"]:
-                blocking[fid].append(c)
+                if fid not in dead:
+                    blocking[fid].append(c)
+    status = {}
+    for fid in facts:
+        if fid in rejected:
+            status[fid] = "rejected"
+        elif fid in superseded:
+            status[fid] = "superseded"
+        elif fid in chosen:
+            status[fid] = "verified"
+        elif blocking.get(fid):
+            status[fid] = "conflicting" if any(c["agent_script_state"] == "do_not_quote_conflicting"
+                                               for c in blocking[fid]) else "pending"
+        else:
+            status[fid] = "verified"
+    # A slot with an unresolved conflict is not verified anywhere in it, even for facts outside the contradiction.
+    for key, fids in slots.items():
+        held = [status[f] for f in fids if status[f] in ("pending", "conflicting")]
+        if held and not any(f in chosen for f in fids):
+            for f in fids:
+                if status[f] == "verified":
+                    status[f] = "conflicting" if "conflicting" in held else "pending"
+                    blocking[f] = sorted({id(c): c for x in fids for c in blocking.get(x, [])}.values(), key=lambda c: c["contradiction_id"])
     out_facts = []
     for fid, f in facts.items():
-        if fid in rejected:
-            st = "rejected"
-        elif fid in superseded and fid not in chosen:
-            st = "superseded"
-        elif fid in chosen:
-            st = "verified"
-        elif blocking.get(fid):
-            hard = [c for c in blocking[fid] if c["agent_script_state"] in ("do_not_quote_conflicting", "do_not_quote_pending")]
-            if not hard:
-                st = "verified"
-            else:
-                st = "conflicting" if any(c["agent_script_state"] == "do_not_quote_conflicting" for c in hard) else "pending"
-        else:
-            st = "verified"
         f["review_status"] = "rejected" if fid in rejected else "accepted"
-        f["status"] = st
-        f["open_contradictions"] = [c["label"] or c["contradiction_id"] for c in blocking.get(fid, [])]
+        f["status"] = status[fid]
+        f["resolved_by_review"] = fid in chosen
+        f["open_contradictions"] = [c["label"] or c["contradiction_id"][:8] for c in blocking.get(fid, [])]
         out_facts.append(f)
     return {"contract": "03_resolved", "development_id": extracted["development_id"], "generated_at": now(),
             "facts": out_facts, "contradictions": contradictions}
