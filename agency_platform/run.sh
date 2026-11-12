@@ -12,12 +12,16 @@ if ! command -v tesseract >/dev/null 2>&1; then
 fi
 command -v node >/dev/null 2>&1 || { echo "! Node.js 18+ not found. macOS: brew install node"; exit 1; }
 
-if [ ! -d .venv ]; then
-  "$PY" -m venv .venv
+if [ ! -x .venv/bin/python ]; then
+  rm -rf .venv
+  "$PY" -m venv .venv >/dev/null 2>&1 || { rm -rf .venv; echo "(python venv unavailable; installing into $PY directly)"; }
 fi
-# shellcheck disable=SC1091
-source .venv/bin/activate
-python -m pip install -q -r requirements.txt -r agency_platform/requirements.txt
+if [ -x .venv/bin/python ]; then
+  # shellcheck disable=SC1091
+  source .venv/bin/activate
+  PY=python
+fi
+"$PY" -m pip install -q -r requirements.txt -r agency_platform/requirements.txt
 
 (cd agency_platform/frontend && { [ -d node_modules ] || npm install --silent; } && npm run build --silent)
 
@@ -30,4 +34,4 @@ echo "  Agency Review Platform -> http://localhost:${PORT}"
 echo "  (first start extracts the sample documents; give it ~20 seconds)"
 echo ""
 ( sleep 4; command -v open >/dev/null 2>&1 && open "http://localhost:${PORT}" ) >/dev/null 2>&1 &
-exec python -m uvicorn agency_platform.server:app --host 127.0.0.1 --port "$PORT"
+exec "$PY" -m uvicorn agency_platform.server:app --host 127.0.0.1 --port "$PORT"

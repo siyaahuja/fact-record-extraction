@@ -68,7 +68,8 @@ def rebuild(slug: str) -> dict:
     dev_ids = Counter(x.get("development_id") for x in docs if x.get("development_id"))
     units = Counter(x.get("unit_id") for x in docs if x.get("unit_id"))
     meta["development_id"] = dev_ids.most_common(1)[0][0] if dev_ids else slug
-    meta["name"] = next((x["development_name"] for x in docs if x.get("development_name")), meta.get("name", slug))
+    if not meta.get("name"):
+        meta["name"] = next((x["development_name"] for x in docs if x.get("development_name")), slug)
     meta["primary_unit_id"] = cg.cb.LISTING_UNITS.get(cg.contract_name(meta["development_id"], slug)) or \
         (units.most_common(1)[0][0] if units else None)
     meta["contract_name"] = cg.contract_name(meta["development_id"], slug)
