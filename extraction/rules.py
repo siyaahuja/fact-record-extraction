@@ -330,7 +330,7 @@ def extract_area_tables(ctx: Ctx):
                     and {ci: parse_number(w.text) for ci, w in data_rows[0][1].items()} == values):
                 continue
             if type_table:
-                scope = f"house_type:{label.split()[0].upper()}" if label else "whole"
+                scope = f"house_type:{label.split()[0].lower()}" if label else "whole"
             else:
                 fl = re.search(FLOOR_RE, label, re.I)
                 scope = (f"floor:{floor_slug(fl.group(1))}" if fl else
@@ -460,30 +460,49 @@ def extract_type_tables(ctx: Ctx):
     for hi, header in enumerate(rows):
         if not re.fullmatch(r"type|house\s+type", header.words[0].text, re.I):
             continue
-        cols = {}
+        # Header phrases ("Bathrooms (incl. en-suite)", "GIA sq ft"); a cell belongs to the phrase whose
+        # span, up to the next phrase, contains it.
+        phrases = []
         for w in header.words:
-            if re.fullmatch(r"bedrooms?", w.text, re.I):
-                cols["bedrooms"] = w.xc
-            elif re.fullmatch(r"bathrooms?", w.text, re.I):
-                cols["bathrooms"] = w.xc
+            if phrases and w.x0 - phrases[-1][-1].x1 < 8:
+                phrases[-1].append(w)
+            else:
+                phrases.append([w])
+        cols = []
+        for i, ph in enumerate(phrases):
+            text = " ".join(w.text for w in ph)
+            x0, x1 = ph[0].x0, phrases[i + 1][0].x0 if i + 1 < len(phrases) else 1e9
+            if re.match(r"bedrooms?\b", text, re.I):
+                cols.append(("bedrooms", None, x0, x1))
+            elif re.match(r"bathrooms?\b", text, re.I):
+                cols.append(("bathrooms", None, x0, x1))
+            elif (unit := re.search(AREA_UNIT, text, re.I)) and area_unit(unit.group(0)):
+                basis = next((b for pat, b in BASIS_RE if re.search(pat, text, re.I)), "unspecified")
+                cols.append(("floor_area", (basis, area_unit(unit.group(0))), x0, x1))
         if not cols:
             continue
         for row in rows[hi + 1:hi + 20]:
             first = row.words[0].text
             if not re.fullmatch(r"[A-Z]|\d{1,2}[A-Z]?", first) or re.fullmatch(r"plot", first, re.I):
                 break
-            for field, xc in cols.items():
-                best = min((w for w in row.words[1:] if re.fullmatch(r"\d{1,2}", w.text)), key=lambda w: abs(w.xc - xc), default=None)
-                if best is not None and abs(best.xc - xc) < 30:
-                    ctx.add("pdf_text_table", field, {}, {"count": int(best.text)}, best.text, row.text,
-                            target_scope=f"house_type:{first.upper()}", table_header=header.text, confidence=0.85)
+            scope = f"house_type:{first.lower()}"
+            for field, basis, x0, x1 in cols:  # basis = (basis, unit) for floor_area
+                cell = next((w for w in row.words[1:] if x0 <= w.xc < x1 and re.fullmatch(NUM, w.text)), None)
+                if cell is None:
+                    continue
+                if field == "floor_area":
+                    ctx.add("pdf_text_table", field, {"basis": basis[0], "scope": scope}, {"amount": parse_number(cell.text), "unit": basis[1]},
+                            cell.text, row.text, table_header=header.text, confidence=0.85)
+                else:
+                    ctx.add("pdf_text_table", field, {}, {"count": int(parse_number(cell.text))}, cell.text, row.text,
+                            target_scope=scope, table_header=header.text, confidence=0.85)
     for source, text in ctx.page.sources().items():
         for m in re.finditer(r"\btype\s+([A-Z])\s*:\s*(principal|guest|master)\s+en[\s-]?suite\s+with\s+([^.\n]*)", text, re.I):
             desc = m.group(3).lower()
             fixture = "both" if "bath" in desc and "shower" in desc else "bath" if "bath" in desc else "shower" if "shower" in desc else None
             if fixture:
                 ctx.add(source, "bathroom_fixture", {"room": f"{m.group(2).lower()}_en_suite"}, {"fixture": fixture, "text": m.group(0)},
-                        m.group(0), _line_span(text, m.start(), m.end()), target_scope=f"house_type:{m.group(1).upper()}", confidence=0.8)
+                        m.group(0), _line_span(text, m.start(), m.end()), target_scope=f"house_type:{m.group(1).lower()}", confidence=0.8)
 
 
 def extract_page(page: Page, doc_type: str, focus_floor: str | None = None) -> list[dict]:

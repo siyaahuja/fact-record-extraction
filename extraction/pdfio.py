@@ -75,10 +75,15 @@ class Page:
         """OCR lines not already in a good text layer (text inside images: floorplans, banners)."""
         from rapidfuzz import fuzz
         pdf = re.sub(r"[^a-z0-9]", "", self.pdf_text.lower())
+        pdf_tokens = set(re.findall(r"[a-z0-9]+", self.pdf_text.lower()))
         keep = []
         for line in self.ocr_text.splitlines():
             sq = re.sub(r"[^a-z0-9]", "", line.lower())
             if len(sq) < 6 or sq in pdf or fuzz.partial_ratio(sq, pdf) >= 85:
+                continue
+            # Side-by-side text-layer blocks that OCR merged into one line are not new text.
+            tokens = re.findall(r"[a-z0-9]+", line.lower())
+            if sum(t in pdf_tokens for t in tokens) >= 0.6 * len(tokens):
                 continue
             keep.append(line)
         return "\n".join(keep)
