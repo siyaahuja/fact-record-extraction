@@ -1,0 +1,169 @@
+{
+  "contract": "02_review_actions",
+  "version": 1,
+  "shapes": {
+    "reject_fact": {
+      "action": "reject_fact",
+      "fact_id": "<fact id>",
+      "reviewer": {
+        "id": "str",
+        "name": "str"
+      },
+      "at": "ISO-8601 UTC",
+      "note": "optional reason"
+    },
+    "resolve_contradiction": {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C01..",
+      "resolution": "accept_recommendation | choose_fact | keep_both_scoped",
+      "fact_id": "<required when resolution = choose_fact; must be a member>",
+      "reviewer": {
+        "id": "str",
+        "name": "str"
+      },
+      "at": "ISO-8601 UTC",
+      "note": "why (audit)"
+    }
+  },
+  "rules": [
+    "Facts are accepted by default; only rejections are recorded.",
+    "Actions apply in order; a later action on the same id replaces an earlier one.",
+    "Contradictions without an action stay open and block their field in 04/05."
+  ],
+  "actions": [
+    {
+      "action": "reject_fact",
+      "fact_id": "1d157e4b-2590-5d38-ba20-10ad505f9dd2",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Partial read of the 'For Sale or To Let' banner; the full banner is extracted separately."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C01",
+      "resolution": "accept_recommendation",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Same agent, later particulars (Oct 2026) supersede April."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C02",
+      "resolution": "choose_fact",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "April row prints 185 sq m next to 2,700 sq ft: document error. Use October's 1,990 sq ft (185 m²) NIA.",
+      "fact_id": "02fa9f25-9ba7-5068-b325-93a032546a21"
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C03",
+      "resolution": "accept_recommendation",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Measured survey (tier 3, RICS basis stated) over brochure NIA."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C04",
+      "resolution": "accept_recommendation",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Measured survey GIA over brochure GIA."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C05",
+      "resolution": "keep_both_scoped",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Brochure 468 sq ft has no stated basis; survey 461 sq ft is NIA. Keep both, labelled."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C06",
+      "resolution": "choose_fact",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Survey on site 9 Sep 2026: five bays usable, bay 6 is bin store. Confirmed with agent.",
+      "fact_id": "d75b0e65-645b-5044-ada0-07fbcc959b98"
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C07",
+      "resolution": "keep_both_scoped",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "One space per floor letting allowance vs six spaces for the building: different scopes."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C08",
+      "resolution": "choose_fact",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Checked the EPC register: certificate 9417-3082-6651-2049-7735 is band C.",
+      "fact_id": "fb3268f2-a044-5b08-9b87-243ecf399653"
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C09",
+      "resolution": "accept_recommendation",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Solicitor's formal instruction (3 Nov 2026) supersedes the April brochure."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C10",
+      "resolution": "keep_both_scoped",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "Development-wide finishes claim stays on the development, not on No. 59."
+    },
+    {
+      "action": "resolve_contradiction",
+      "contradiction_id": "C11",
+      "resolution": "keep_both_scoped",
+      "reviewer": {
+        "id": "agent-demo",
+        "name": "Demo Reviewer (sales agency)"
+      },
+      "at": "2026-11-12T21:30:00Z",
+      "note": "No. 59 is type E; type D facts stay on type D."
+    }
+  ]
+}
