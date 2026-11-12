@@ -1,61 +1,47 @@
 {
+  "types_covered": [
+    "official_record_mismatch",
+    "plot_or_type_variation",
+    "scope_difference",
+    "true_conflict",
+    "unit_or_measurement_mismatch",
+    "version_supersession"
+  ],
+  "types_not_covered": [
+    "stale_listing"
+  ],
   "contradictions": [
     {
       "id": "C01",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:whole",
       "field": "price",
-      "qualifier": {
-        "price_type": "freehold_offers/guide"
-      },
+      "qualifier": {},
       "type": "version_supersession",
       "real_only": true,
       "evidence": [
         {
           "doc_id": "carterjonas-98889981",
           "page": 2,
-          "value": "£700,000 (freehold offers)",
-          "quote": "Alternatively Freehold offers will be considered at £700,000"
+          "value": "£700,000 freehold offers",
+          "quote": "Alternatively Freehold offers will be considered at £700,000",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "carterjonas-f8692efa",
           "page": 2,
-          "value": "£600,000 (guide)",
-          "quote": "£600,000 Guide Price"
+          "value": "£600,000 guide",
+          "quote": "£600,000 Guide Price",
+          "quote_check": "scanned: verify by OCR/vision"
         }
       ],
-      "expected_resolution": "Same issuer (Carter Jonas) and doc type; October 2026 is the candidate. Price is material, so a human confirms. April stays in history as superseded.",
-      "voice_agent": "Pending: don't quote a price. 'The latest particulars show a lower figure than earlier marketing; an agent will confirm the current price.' After sign-off: '£600,000 guide price.'",
+      "expected_resolution": "Same issuer and doc type: October 2026 is the candidate. Price is material, so a human confirms. April kept in history as superseded.",
+      "voice_agent": "Pending: don't quote a price; say the latest particulars show a change and an agent will confirm. After sign-off: '£600,000 guide price.'",
       "requires_human": true
     },
     {
       "id": "C02",
-      "unit": "kelso-villa-ba1-3au:whole",
-      "field": "price",
-      "qualifier": {
-        "price_type": "freehold_offers/guide"
-      },
-      "type": "stale_listing",
-      "evidence": [
-        {
-          "doc_id": "syn-kv-listing",
-          "page": 1,
-          "value": "£700,000",
-          "quote": "Freehold offers in excess of £700,000"
-        },
-        {
-          "doc_id": "carterjonas-f8692efa",
-          "page": 2,
-          "value": "£600,000",
-          "quote": "£600,000 Guide Price"
-        }
-      ],
-      "expected_resolution": "The latest verified document (October particulars, then C01 sign-off) wins. Flag the PropNest listing PNC-7731804 for update and notify the agent.",
-      "voice_agent": "Quote the verified document price; if asked about the listing, say the online listing appears out of date.",
-      "real_only": false,
-      "requires_human": true
-    },
-    {
-      "id": "C03",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:whole",
       "field": "floor_area",
       "qualifier": {
@@ -70,21 +56,24 @@
           "page": 2,
           "value": "185 sq m beside 2,700 sq ft in one row",
           "quote": "Total (ALL FLOORS) 185 2,700",
-          "doc_error": true
+          "doc_error": true,
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "carterjonas-f8692efa",
           "page": 1,
-          "value": "1,990 sq ft (185 m2) NIA; 2,700 sq ft GIA",
-          "quote": "1,990 sq ft (185m2) net offices (2,700 sq ft GIA)"
+          "value": "1,990 sq ft (185 m2) net; 2,700 sq ft GIA",
+          "quote": "1,990 sq ft (185m2) net offices (2,700 sq ft GIA)",
+          "quote_check": "scanned: verify by OCR/vision"
         }
       ],
-      "expected_resolution": "185 sq m = 1,991 sq ft, not 2,700: flag a document error on the April row (not two different areas). Normalise and label: 185 m2 is NIA, 2,700 sq ft is GIA. Prefer October, which states both consistently.",
-      "voice_agent": "Never give a single unlabelled area. Once verified: net and gross separately, each with its basis.",
+      "expected_resolution": "185 sq m = 1,991 sq ft, not 2,700: flag a document error on the April row, not two areas. Label 185 m2 as NIA and 2,700 sq ft as GIA; prefer October.",
+      "voice_agent": "Never give a single unlabelled area; once verified give net and gross separately.",
       "requires_human": true
     },
     {
-      "id": "C04",
+      "id": "C03",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:whole",
       "field": "floor_area",
       "qualifier": {
@@ -97,28 +86,25 @@
           "doc_id": "carterjonas-f8692efa",
           "page": 1,
           "value": "1,990 sq ft / 185 m2 NIA",
-          "quote": "1,990 sq ft (185m2) net offices"
-        },
-        {
-          "doc_id": "carterjonas-f8692efa",
-          "page": 2,
-          "value": "185 m2 / 1,990 sq ft NIA",
-          "quote": "Property NIA … Total 185 1,990"
+          "quote": "1,990 sq ft (185m2) net offices",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "syn-kv-survey",
           "page": 1,
           "value": "1,912 sq ft / 177.6 m2 NIA",
-          "quote": "Total (all floors) 177.6 1,912"
+          "quote": "Total (all floors) 177.6 1,912",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Same unit, field and basis; values can't both be right. The survey (tier 3, basis stated, RICS) outranks the brochure (tier 5) as a candidate, but area is material and this overrides marketing, so a human signs off. The survey's own note explains the difference (second-floor eaves and plant excluded).",
-      "voice_agent": "Conflicting: don't quote a net area. 'The measured survey and the brochure give different net areas; an agent will confirm.'",
+      "expected_resolution": "Same unit, field and basis; can't both be right. Survey (tier 3, RICS basis stated) is the candidate over the brochure (tier 5), but area is material: human sign-off. Survey note explains the gap (2nd-floor eaves and plant excluded).",
+      "voice_agent": "Conflicting: don't quote a net area; say the survey and the brochure differ and an agent will confirm.",
       "real_only": false,
       "requires_human": true
     },
     {
-      "id": "C05",
+      "id": "C04",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:whole",
       "field": "floor_area",
       "qualifier": {
@@ -131,22 +117,25 @@
           "doc_id": "carterjonas-f8692efa",
           "page": 1,
           "value": "2,700 sq ft GIA",
-          "quote": "(2,700 sq ft GIA)"
+          "quote": "(2,700 sq ft GIA)",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "syn-kv-survey",
           "page": 1,
           "value": "2,672 sq ft / 248.2 m2 GIA",
-          "quote": "Total (all floors) … 248.2 2,672"
+          "quote": "248.2 2,672",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Small (1%) but real difference on the same basis. Survey is the tier-3 candidate; human confirms (material field). Could be treated as rounding if the team sets a tolerance.",
+      "expected_resolution": "Same basis, about 1% apart. Survey is the candidate; human confirms (or the team sets a rounding tolerance).",
       "voice_agent": "Pending: don't quote a gross area until verified.",
       "real_only": false,
       "requires_human": true
     },
     {
-      "id": "C06",
+      "id": "C05",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:lower-ground",
       "field": "floor_area",
       "qualifier": {
@@ -159,93 +148,25 @@
           "doc_id": "carterjonas-98889981",
           "page": 1,
           "value": "468 sq ft (43.45 sq m), basis not printed",
-          "quote": "468 Sq Ft (43.45 Sq M)"
-        },
-        {
-          "doc_id": "carterjonas-98889981",
-          "page": 2,
-          "value": "43.45 sq m / 468 sq ft",
-          "quote": "Lower Floor 43.45 468"
+          "quote": "468 Sq Ft (43.45 Sq M)",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "syn-kv-survey",
           "page": 1,
           "value": "461 sq ft / 42.8 m2 NIA",
-          "quote": "Lower Ground Floor 42.8 461"
+          "quote": "Lower Ground Floor 42.8 461",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Brochure basis is unspecified, survey is NIA, so they are not directly comparable. Keep both, labelled; the survey's NIA is the candidate for an NIA fact. Never default the brochure figure to NIA.",
-      "voice_agent": "Give the area with its basis ('about 461 sq ft net internal, per the measured survey') once verified.",
+      "expected_resolution": "Different (unstated vs NIA) bases, so not directly comparable. Keep both labelled; never default the brochure figure to NIA. Survey NIA is the candidate NIA fact.",
+      "voice_agent": "Give the area with its basis once verified, e.g. 'about 461 sq ft net internal, per the measured survey'.",
       "real_only": false,
       "requires_human": true
     },
     {
-      "id": "C07",
-      "unit": "kelso-villa-ba1-3au:whole",
-      "field": "floor_area",
-      "qualifier": {
-        "basis": "EPC vs NIA/GIA",
-        "scope": "whole"
-      },
-      "type": "unit_or_measurement_mismatch",
-      "evidence": [
-        {
-          "doc_id": "syn-kv-epc",
-          "page": 1,
-          "value": "239 m2 (EPC total useful floor area)",
-          "quote": "Total useful floor area 239 square metres"
-        },
-        {
-          "doc_id": "syn-kv-survey",
-          "page": 1,
-          "value": "248.2 m2 GIA; 177.6 m2 NIA",
-          "quote": "Total (all floors) 177.6 1,912 248.2 2,672"
-        }
-      ],
-      "expected_resolution": "Different bases: not a conflict. Store the EPC area with basis=EPC; never compare it with NIA or GIA.",
-      "voice_agent": "If asked, the EPC area is quoted only as 'the EPC records 239 square metres'.",
-      "real_only": false,
-      "requires_human": true
-    },
-    {
-      "id": "C08",
-      "unit": "kelso-villa-ba1-3au:whole",
-      "field": "epc_rating",
-      "qualifier": {},
-      "type": "official_record_mismatch",
-      "evidence": [
-        {
-          "doc_id": "carterjonas-98889981",
-          "page": 2,
-          "value": "B",
-          "quote": "EPC has been assessed as B."
-        },
-        {
-          "doc_id": "carterjonas-f8692efa",
-          "page": 2,
-          "value": "B",
-          "quote": "EPC has been assessed as B."
-        },
-        {
-          "doc_id": "syn-kv-listing",
-          "page": 1,
-          "value": "B",
-          "quote": "EPC B"
-        },
-        {
-          "doc_id": "syn-kv-epc",
-          "page": 1,
-          "value": "C (58)",
-          "quote": "This property’s current energy rating is C."
-        }
-      ],
-      "expected_resolution": "Marketing says B; the register certificate (2 Sept 2026, tier 2) says C. Do not auto-correct; a human checks the register and whether a newer certificate exists. Tier 2 is the candidate.",
-      "voice_agent": "Don't assert either. 'The official EPC record and the marketing disagree; an agent will confirm the rating.'",
-      "real_only": false,
-      "requires_human": true
-    },
-    {
-      "id": "C09",
+      "id": "C06",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:whole",
       "field": "parking",
       "qualifier": {
@@ -257,40 +178,39 @@
           "doc_id": "carterjonas-f8692efa",
           "page": 1,
           "value": "6 spaces total",
-          "quote": "Parking on site (6 spaces total)"
+          "quote": "Parking on site (6 spaces total)",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "carterjonas-98889981",
           "page": 2,
           "value": "six spaces",
-          "quote": "Six parking spaces are with the building"
+          "quote": "Six parking spaces are with the building",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "syn-kv-survey",
           "page": 1,
-          "value": "6 marked bays",
-          "quote": "Six (6) marked parking bays"
+          "value": "5 allocated; bay 6 bin store and turning area",
+          "quote": "five (5) bays (1 to 5) were in use as allocated parking",
+          "quote_check": "verbatim in pdftotext"
         },
         {
-          "doc_id": "syn-kv-title",
-          "page": 1,
-          "value": "six spaces numbered 1 to 6",
-          "quote": "comprising six parking spaces numbered 1 to 6"
-        },
-        {
-          "doc_id": "syn-kv-parking",
-          "page": 1,
-          "value": "5 allocated (bay 6 reclassified)",
-          "quote": "Total allocated parking spaces: 5 (five)"
+          "doc_id": "syn-kv-survey",
+          "page": 4,
+          "value": "5 allocated",
+          "quote": "Allocated parking bays: 5",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Survey and allocation schedule are tier-3 peers and the title (tier 2) still shows 6, but the schedule is later and explains bay 6's loss to fire access. Can't both be right as 'usable spaces': do not auto-pick. Human sign-off; record who, when, why.",
-      "voice_agent": "Conflicting: 'Sources disagree on the number of parking spaces; an agent will confirm.' Capture the lead.",
+      "expected_resolution": "Survey (tier 3, dated 9 Sep 2026) says 5 usable bays; both brochures say 6. Don't auto-pick: human sign-off with who, when, why. Loser kept in history.",
+      "voice_agent": "Conflicting: say sources disagree on the number of spaces and an agent will confirm; capture the lead.",
       "real_only": false,
       "requires_human": true
     },
     {
-      "id": "C10",
+      "id": "C07",
+      "development": "kelso-villa-ba1-3au",
       "unit": "kelso-villa-ba1-3au:whole vs per-floor",
       "field": "parking",
       "qualifier": {
@@ -303,64 +223,60 @@
           "doc_id": "carterjonas-98889981",
           "page": 1,
           "value": "1 space per floor",
-          "quote": "Parking on site (one space per floor)"
-        },
-        {
-          "doc_id": "carterjonas-98889981",
-          "page": 2,
-          "value": "1 per floor on any letting; 6 with the building",
-          "quote": "Six parking spaces are with the building and one space is available per floor on any letting"
+          "quote": "Parking on site (one space per floor)",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "carterjonas-f8692efa",
           "page": 1,
           "value": "6 total",
-          "quote": "Parking on site (6 spaces total)"
+          "quote": "Parking on site (6 spaces total)",
+          "quote_check": "scanned: verify by OCR/vision"
         }
       ],
-      "expected_resolution": "Not a conflict: per-floor-letting allowance and whole-building total are different scopes. Keep both at their stated scope.",
-      "voice_agent": "'Each floor let comes with one space; the building as a whole has (verified total) spaces.'",
+      "expected_resolution": "Not a conflict: per-floor letting allowance vs whole-building total. Keep both at their stated scope.",
+      "voice_agent": "'Each floor let comes with one space; the building total is being confirmed.'",
       "requires_human": false
     },
     {
-      "id": "C11",
-      "unit": "kelso-villa-ba1-3au:lower-ground",
-      "field": "availability",
+      "id": "C08",
+      "development": "kelso-villa-ba1-3au",
+      "unit": "kelso-villa-ba1-3au:whole",
+      "field": "epc_rating",
       "qualifier": {},
       "type": "official_record_mismatch",
       "evidence": [
         {
           "doc_id": "carterjonas-98889981",
-          "page": 1,
-          "value": "lower ground floor to let",
-          "quote": "TO LET—LOWER GROUND FLOOR"
-        },
-        {
-          "doc_id": "syn-kv-listing",
-          "page": 1,
-          "value": "lower ground floor currently available",
-          "quote": "The lower ground floor (468 sq ft) is currently available."
-        },
-        {
-          "doc_id": "syn-kv-title",
-          "page": 1,
-          "value": "leased for 10 years from 1 Sept 2026",
-          "quote": "NOTICE of a lease dated 1 September 2026 of the lower ground floor"
+          "page": 2,
+          "value": "B",
+          "quote": "EPC has been assessed as B.",
+          "quote_check": "scanned: verify by OCR/vision"
         },
         {
           "doc_id": "carterjonas-f8692efa",
+          "page": 2,
+          "value": "B",
+          "quote": "EPC has been assessed as B.",
+          "quote_check": "scanned: verify by OCR/vision"
+        },
+        {
+          "doc_id": "syn-kv-survey",
           "page": 1,
-          "value": "one floor remaining",
-          "quote": "For Sale or To Let (one floor remaining)"
+          "value": "C (cites register cert 9417-3082-6651-2049-7735, 2 Sep 2026)",
+          "quote": "band C",
+          "note": "secondary reference to the official register, quoted in a tier-3 survey",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Title (tier 2) shows the LG floor let from 1 Sept 2026; marketing still offers it. Do not auto-correct; human confirms against the current title and lease. Flag the listing.",
-      "voice_agent": "'The lower ground floor appears to have been let; an agent will confirm what's still available.'",
+      "expected_resolution": "Marketing says B; the survey cites the current register certificate as C. Don't auto-correct: a human checks the EPC register itself.",
+      "voice_agent": "Don't assert either; say the official EPC record and the marketing appear to disagree and an agent will confirm.",
       "real_only": false,
       "requires_human": true
     },
     {
-      "id": "C12",
+      "id": "C09",
+      "development": "st-huberts-close-gerrards-cross",
       "unit": "st-huberts-close-gerrards-cross:no-59",
       "field": "price",
       "qualifier": {
@@ -372,24 +288,27 @@
           "doc_id": "struttparker-a45c02cc",
           "page": 2,
           "value": "£1,458,000 guide",
-          "quote": "Guide price £1,458,000"
+          "quote": "Guide price £1,458,000",
+          "quote_check": "verbatim in pdftotext"
         },
         {
           "doc_id": "syn-shc59-price",
           "page": 1,
-          "value": "£1,395,000 guide from 9 Nov 2026",
-          "quote": "Revised £1,395,000 09/11/2026"
+          "value": "£1,395,000 from 9 Nov 2026",
+          "quote": "Revised £1,395,000 09/11/2026",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Later, higher-tier formal instruction (tier 4, 3 Nov 2026) supersedes the April 2026 brochure (tier 5). Candidate £1,395,000; price is material, so a human confirms. Brochure needs reissue.",
+      "expected_resolution": "Later formal instruction (tier 4, 3 Nov 2026) supersedes the April 2026 brochure (tier 5). Candidate £1,395,000; price is material so a human confirms.",
       "voice_agent": "Pending: don't quote. After sign-off: 'The guide price is £1,395,000.'",
       "real_only": false,
       "requires_human": true
     },
     {
-      "id": "C13",
-      "unit": "st-huberts-close-gerrards-cross:no-59 vs st-huberts-close-gerrards-cross:development",
-      "field": "bathrooms / en_suite_fittings",
+      "id": "C10",
+      "development": "st-huberts-close-gerrards-cross",
+      "unit": "st-huberts-close-gerrards-cross:no-59 vs development",
+      "field": "en_suite_fittings",
       "qualifier": {
         "scope": "development vs unit"
       },
@@ -398,78 +317,51 @@
         {
           "doc_id": "syn-shc-finishes",
           "page": 1,
-          "value": "All en-suites walk-in showers, no en-suite baths (development scope)",
-          "quote": "All en-suites are fitted with walk-in showers… No en-suite has a bath."
+          "value": "all en-suites walk-in showers (development scope)",
+          "quote": "All en-suites are fitted with walk-in showers",
+          "quote_check": "verbatim in pdftotext"
         },
         {
           "doc_id": "struttparker-a45c02cc",
           "page": 2,
           "value": "principal en suite BATHROOM; guest en suite shower room (unit scope)",
-          "quote": "a fully fitted en suite bathroom. The guest suite benefits from an en suite shower room",
-          "note": "text Caesar-shifted +29 in the PDF; decode first"
+          "quote": "fitted en suite bathroom",
+          "note": "this sentence is Caesar-shifted +29 in the text layer; decode first",
+          "quote_check": "NOT in pdftotext (see note)"
         }
       ],
-      "expected_resolution": "Do not copy the development-wide claim onto No. 59. Keep both at stated scope; the unit-level brochure is the only unit source. The schedule itself warns finishes may have been altered.",
-      "voice_agent": "'For No. 59 specifically, the particulars describe an en-suite bathroom to the principal bedroom and a shower room to the guest suite.' Don't say 'all en-suites have showers'.",
+      "expected_resolution": "Never copy the development-wide claim onto No. 59. Keep both at stated scope; the brochure is the only unit-level source.",
+      "voice_agent": "For No. 59 say the particulars describe an en-suite bathroom to the principal bedroom and a shower room to the guest suite; don't say 'all en-suites have showers'.",
       "real_only": false,
       "requires_human": false
     },
     {
-      "id": "C14",
-      "unit": "st-huberts-close-gerrards-cross:no-59",
-      "field": "floor_area",
+      "id": "C11",
+      "development": "st-huberts-close-gerrards-cross",
+      "unit": "st-huberts-close-gerrards-cross:no-59 (type E) vs plots 53/57 (type D)",
+      "field": "en_suite_fittings / bedrooms",
       "qualifier": {
-        "basis": "unspecified vs EPC",
-        "scope": "whole"
+        "scope": "plot/house_type"
       },
-      "type": "unit_or_measurement_mismatch",
+      "type": "plot_or_type_variation",
       "evidence": [
         {
-          "doc_id": "struttparker-a45c02cc",
+          "doc_id": "syn-shc-finishes",
           "page": 2,
-          "value": "2,848 sq ft (264.6 sq m), basis not printed",
-          "quote": "2,848 sq ft (264.6 sq m)"
-        },
-        {
-          "doc_id": "syn-shc59-epc",
-          "page": 1,
-          "value": "241 m2 (EPC heated area, excludes garage)",
-          "quote": "Total floor area 241 square metres"
+          "value": "No. 59 = type E, 5 bed, standard spec",
+          "quote": "59 E No Standard type E specification",
+          "quote_check": "verbatim in pdftotext"
         },
         {
           "doc_id": "syn-shc-finishes",
           "page": 2,
-          "value": "type E 2,848 sq ft GIA",
-          "quote": "E The Hedgerley 5 3 5 Double 2,848"
+          "value": "type D = 4 bed, principal en-suite with freestanding bath",
+          "quote": "Type D: principal en-suite with freestanding bath and separate shower",
+          "quote_check": "verbatim in pdftotext"
         }
       ],
-      "expected_resolution": "Different bases (brochure likely GIA incl. garage per the type table; EPC is heated area). Not a conflict; normalise and label. 2,848 sq ft = 264.6 m2 checks arithmetically.",
-      "voice_agent": "Give the area with its basis; never a single unlabelled figure.",
-      "real_only": false,
-      "requires_human": true
-    },
-    {
-      "id": "C15",
-      "unit": "st-huberts-close-gerrards-cross:no-59 vs st-huberts-close-gerrards-cross:4-bed-unnumbered",
-      "field": "epc_rating",
-      "qualifier": {},
-      "type": "plot_or_type_variation",
-      "evidence": [
-        {
-          "doc_id": "struttparker-92092382",
-          "page": 4,
-          "value": "C (4-bed, different house)",
-          "quote": "EPC Rating: C"
-        },
-        {
-          "doc_id": "syn-shc59-epc",
-          "page": 1,
-          "value": "D (No. 59)",
-          "quote": "This property’s current energy rating is D."
-        }
-      ],
-      "expected_resolution": "Resolve entities first: the 4-bed brochure (type C, 2,098 sq ft) is a different house from No. 59 (type E, 2,848 sq ft). Never merge. No. 59's EPC is D (single tier-2 source); C belongs only to the 4-bed.",
-      "voice_agent": "For No. 59: 'The EPC rating is D.' Never answer with the other house's C.",
+      "expected_resolution": "Resolve the entity first: No. 59 is type E. Never merge type D facts (4 bed, en-suite bath) into No. 59.",
+      "voice_agent": "Answer only for No. 59; if the caller names another plot, treat it as a different property.",
       "real_only": false,
       "requires_human": false
     }
@@ -481,37 +373,34 @@
       "value": "freehold",
       "evidence": [
         "carterjonas-98889981",
-        "carterjonas-f8692efa",
-        "syn-kv-title",
-        "syn-kv-listing"
-      ],
-      "note": "All agree; the title (tier 2) verifies it."
+        "carterjonas-f8692efa"
+      ]
     },
     {
       "unit": "kelso-villa-ba1-3au:whole",
       "field": "listed_status",
-      "value": "Grade II listed",
+      "value": "Grade II",
       "evidence": [
         "carterjonas-98889981",
         "carterjonas-f8692efa"
       ]
     },
     {
-      "unit": "kelso-villa-ba1-3au:lower-ground",
-      "field": "rent",
-      "value": "£9,400 pa exclusive (per floor)",
+      "unit": "st-huberts-close-gerrards-cross:no-59",
+      "field": "floor_area",
+      "value": "2,848 sq ft (brochure, basis unprinted) = type E 2,848 sq ft GIA (schedule)",
       "evidence": [
-        "carterjonas-98889981",
-        "syn-kv-listing"
-      ],
-      "note": "Single brochure source; may be moot if the LG lease (C11) is confirmed."
+        "struttparker-a45c02cc",
+        "syn-shc-finishes"
+      ]
     },
     {
-      "unit": "st-huberts-close-gerrards-cross:4-bed-unnumbered",
-      "field": "tenure",
-      "value": "freehold",
+      "unit": "st-huberts-close-gerrards-cross:no-59",
+      "field": "bedrooms",
+      "value": "5",
       "evidence": [
-        "struttparker-92092382"
+        "struttparker-a45c02cc",
+        "syn-shc-finishes"
       ]
     }
   ]

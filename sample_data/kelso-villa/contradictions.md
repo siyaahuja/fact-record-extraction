@@ -1,0 +1,20 @@
+# Kelso Villa, Upper Bristol Road, Bath BA1 3AU: documents and contradictions
+
+| file | type | tier | issuer | date | real/synthetic |
+|---|---|---|---|---|---|
+| `real_kelso-villa_april-2026_to-let_carterjonas-98889981.pdf` | particulars | 5 | Carter Jonas | 2026-04 | real |
+| `real_kelso-villa_october-2026_for-sale_carterjonas-f8692efa.pdf` | particulars | 5 | Carter Jonas | 2026-10 | real |
+| `synthetic_kelso-villa_measured-survey_holloway-reid_2026-09.pdf` | measured_survey | 3 | Holloway & Reid (fictional) | 2026-09-18 | synthetic |
+
+## Contradictions
+
+| id | unit | field | type | sources (page) | values | expected resolution | voice agent says |
+|---|---|---|---|---|---|---|---|
+| C01 | whole | price | version_supersession (real docs only) | carterjonas-98889981 p2; carterjonas-f8692efa p2 | £700,000 freehold offers; £600,000 guide | Same issuer and doc type: October 2026 is the candidate. Price is material, so a human confirms. April kept in history as superseded. | Pending: don't quote a price; say the latest particulars show a change and an agent will confirm. After sign-off: '£600,000 guide price.' |
+| C02 | whole | floor_area | unit_or_measurement_mismatch (real docs only) | carterjonas-98889981 p2; carterjonas-f8692efa p1 | 185 sq m beside 2,700 sq ft in one row; 1,990 sq ft (185 m2) net; 2,700 sq ft GIA | 185 sq m = 1,991 sq ft, not 2,700: flag a document error on the April row, not two areas. Label 185 m2 as NIA and 2,700 sq ft as GIA; prefer October. | Never give a single unlabelled area; once verified give net and gross separately. |
+| C03 | whole | floor_area | true_conflict | carterjonas-f8692efa p1; syn-kv-survey p1 | 1,990 sq ft / 185 m2 NIA; 1,912 sq ft / 177.6 m2 NIA | Same unit, field and basis; can't both be right. Survey (tier 3, RICS basis stated) is the candidate over the brochure (tier 5), but area is material: human sign-off. Survey note explains the gap (2nd-floor eaves and plant excluded). | Conflicting: don't quote a net area; say the survey and the brochure differ and an agent will confirm. |
+| C04 | whole | floor_area | true_conflict | carterjonas-f8692efa p1; syn-kv-survey p1 | 2,700 sq ft GIA; 2,672 sq ft / 248.2 m2 GIA | Same basis, about 1% apart. Survey is the candidate; human confirms (or the team sets a rounding tolerance). | Pending: don't quote a gross area until verified. |
+| C05 | lower-ground | floor_area | unit_or_measurement_mismatch | carterjonas-98889981 p1; syn-kv-survey p1 | 468 sq ft (43.45 sq m), basis not printed; 461 sq ft / 42.8 m2 NIA | Different (unstated vs NIA) bases, so not directly comparable. Keep both labelled; never default the brochure figure to NIA. Survey NIA is the candidate NIA fact. | Give the area with its basis once verified, e.g. 'about 461 sq ft net internal, per the measured survey'. |
+| C06 | whole | parking | true_conflict | carterjonas-f8692efa p1; carterjonas-98889981 p2; syn-kv-survey p1; syn-kv-survey p4 | 6 spaces total; six spaces; 5 allocated; bay 6 bin store and turning area; 5 allocated | Survey (tier 3, dated 9 Sep 2026) says 5 usable bays; both brochures say 6. Don't auto-pick: human sign-off with who, when, why. Loser kept in history. | Conflicting: say sources disagree on the number of spaces and an agent will confirm; capture the lead. |
+| C07 | whole vs per-floor | parking | scope_difference (real docs only) | carterjonas-98889981 p1; carterjonas-f8692efa p1 | 1 space per floor; 6 total | Not a conflict: per-floor letting allowance vs whole-building total. Keep both at their stated scope. | 'Each floor let comes with one space; the building total is being confirmed.' |
+| C08 | whole | epc_rating | official_record_mismatch | carterjonas-98889981 p2; carterjonas-f8692efa p2; syn-kv-survey p1 | B; B; C (cites register cert 9417-3082-6651-2049-7735, 2 Sep 2026) | Marketing says B; the survey cites the current register certificate as C. Don't auto-correct: a human checks the EPC register itself. | Don't assert either; say the official EPC record and the marketing appear to disagree and an agent will confirm. |
