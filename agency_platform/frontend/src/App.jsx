@@ -207,7 +207,7 @@ function FactsTab({ slug, facts, docs, refresh, reviewer, notify }) {
   return (
     <>
       <div className="mb-3 flex flex-wrap gap-2">
-        {['all', 'verified', 'pending', 'conflicting', 'superseded', 'rejected'].map((s) => (
+        {['all', 'verified', 'pending', 'superseded', 'rejected'].map((s) => (
           <button key={s} onClick={() => setFilter(s)} className={cn('cursor-pointer rounded-full border px-3 py-1 text-xs font-medium', filter === s ? 'border-zinc-900 bg-zinc-900 text-white' : 'border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50')}>
             {s} {s === 'all' ? facts.length : counts[s] || 0}
           </button>
@@ -350,14 +350,19 @@ function PublishTab({ slug, notify, refresh, version }) {
     } catch (e) { notify({ error: true, title: 'Publish failed', body: e.message }) }
     setBusy(false)
   }
-  const nVerified = listing.units.flatMap((u) => u.fields).filter((f) => f.verification_status === 'verified').length
-  const nPending = listing.units.flatMap((u) => u.fields).length - nVerified
+  const listings = Object.entries(listing.listings || {})
+  const allFields = listings.flatMap(([, l]) => Object.values(l.fields))
+  const nVerified = allFields.filter((f) => f.verification_status === 'verified' && f.fact_id).length
+  const nPending = allFields.filter((f) => f.verification_status === 'pending_verification').length
+  const units = Object.entries(voice.units || {}).sort(([a], [b]) => (listings.some(([, l]) => l.unit_id === b) - listings.some(([, l]) => l.unit_id === a)) || a.localeCompare(b))
+  const dns = units.flatMap(([u, v]) => v.do_not_state.map((d) => ({ ...d, unit_id: u })))
+  const LABEL = { price: 'Price', tenure: 'Tenure', transaction_type: 'Offered', net_area: 'Net area (NIA)', gross_area: 'Gross area (GIA)', stated_area: 'Stated area (basis not given)', epc: 'EPC rating', parking: 'Parking', bedrooms: 'Bedrooms', availability: 'Availability', key_features: 'Key features' }
   return (
     <div className="space-y-4">
       <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
         <div>
           <div className="font-semibold">Ready to publish</div>
-          <div className="text-sm text-zinc-500">{nVerified} verified listing fields · {nPending} pending verification (hidden from buyers) · {voice.do_not_state.length} topics the voice agent won't state</div>
+          <div className="text-sm text-zinc-500">{nVerified} verified listing fields · {nPending} pending verification (no value shown to buyers) · {dns.length} topics the voice agent won't state</div>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => download(`${slug}-05_listing.json`, listing)}><Download className="size-4" />Listing JSON</Button>
@@ -368,23 +373,26 @@ function PublishTab({ slug, notify, refresh, version }) {
       <div className="grid gap-4 lg:grid-cols-5">
         <Card className="lg:col-span-3">
           <div className="flex items-center gap-2 border-b border-zinc-100 p-4"><Building2 className="size-4" /><span className="font-semibold">Listing preview</span><span className="text-xs text-zinc-500">05_listing</span></div>
-          <div className="divide-y divide-zinc-100">
-            {listing.units.map((u) => (
-              <div key={u.unit_id} className="p-4">
-                <div className="mb-2 flex items-center gap-2"><span className="font-medium capitalize">{unitLabel(u.unit_id)}</span>{u.primary && <Badge tone="default">Main listing</Badge>}</div>
-                <dl className="grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2">
-                  {u.fields.map((f) => (
-                    <div key={f.label} className="flex items-baseline justify-between gap-3 border-b border-dashed border-zinc-100 py-1">
-                      <dt className="text-sm text-zinc-500">{f.label}</dt>
-                      {f.verification_status === 'verified'
-                        ? <dd className="flex items-center gap-1.5 text-right text-sm font-medium"><CheckCircle2 className="size-3.5 shrink-0 text-emerald-600" />{f.value}</dd>
-                        : <dd className="text-right text-sm italic text-zinc-400">pending verification{f.open_contradictions?.length ? ` (${f.open_contradictions.join(', ')})` : ''}</dd>}
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            ))}
-          </div>
+          {listings.map(([name, l]) => (
+            <div key={name} className="p-5">
+              <div className="mb-1 flex items-center gap-2"><span className="text-lg font-semibold capitalize">{name.replace(/-/g, ' ')}</span><Badge tone="default">Main listing</Badge></div>
+              <div className="mb-4 text-xs text-zinc-500">{l.unit_id} · {l.property?.agency}</div>
+              <dl className="divide-y divide-zinc-100">
+                {Object.entries(l.fields).filter(([k, f]) => k !== 'key_features' && f.verification_status !== 'not_stated').map(([k, f]) => (
+                  <div key={k} className="flex items-baseline justify-between gap-4 py-2.5">
+                    <dt className="text-sm text-zinc-500">{LABEL[k] || k}</dt>
+                    {f.verification_status === 'verified'
+                      ? <dd className="text-right"><div className="flex items-center justify-end gap-1.5 text-sm font-medium"><CheckCircle2 className="size-3.5 shrink-0 text-emerald-600" />{f.display}</div>{f.citation && <div className="text-xs text-zinc-400">{f.citation.issuer} · {f.citation.doc_id} p{f.citation.page}</div>}</dd>
+                      : <dd className="text-right"><Badge tone="zinc" className="italic">Pending verification</Badge>{f.blocked_by?.length > 0 && <div className="mt-0.5 text-xs text-zinc-400">blocked by {f.blocked_by.join(', ')}</div>}</dd>}
+                  </div>
+                ))}
+              </dl>
+              {l.fields.key_features?.items?.length > 0 && (
+                <div className="mt-4"><div className="mb-1.5 text-sm text-zinc-500">Key features</div><div className="flex flex-wrap gap-1.5">{l.fields.key_features.items.map((x) => <Badge key={x.fact_id} tone="green">{x.text}</Badge>)}</div></div>
+              )}
+            </div>
+          ))}
+          {!listings.length && <div className="p-6 text-sm text-zinc-500">No listing unit for this development yet.</div>}
         </Card>
         <Card className="lg:col-span-2">
           <div className="flex items-center gap-2 border-b border-zinc-100 p-4"><Mic className="size-4" /><span className="font-semibold">Voice agent payload</span><span className="text-xs text-zinc-500">04_voice_agent</span></div>
@@ -392,23 +400,23 @@ function PublishTab({ slug, notify, refresh, version }) {
             <div>
               <div className="mb-1.5 flex items-center gap-1 text-xs font-medium uppercase tracking-wide text-red-600"><X className="size-3" />Do not state</div>
               <ul className="space-y-1.5">
-                {voice.do_not_state.map((d, i) => (
+                {dns.map((d, i) => (
                   <li key={i} className="rounded-md border border-red-100 bg-red-50/50 p-2 text-sm">
-                    <span className="font-medium">{prettyField(d.field)}</span> <span className="capitalize text-zinc-500">· {unitLabel(d.unit_id)}</span>
-                    <div className="text-xs text-zinc-500">{d.reason}{d.contradictions.length ? ` · ${d.contradictions.join(', ')}` : ''}</div>
+                    <div><span className="font-medium">{prettyField(d.field)}</span> <span className="capitalize text-zinc-500">· {unitLabel(d.unit_id)} · {d.contradiction_id}</span></div>
+                    <div className="text-xs text-zinc-600">Say: “{d.safe_phrasing}”</div>
                   </li>
                 ))}
-                {!voice.do_not_state.length && <li className="text-sm text-zinc-500">Nothing blocked.</li>}
+                {!dns.length && <li className="text-sm text-zinc-500">Nothing blocked.</li>}
               </ul>
             </div>
-            {voice.units.map((u) => (
-              <div key={u.unit_id}>
-                <div className="mb-1.5 text-xs font-medium uppercase tracking-wide text-zinc-500">{unitLabel(u.unit_id)}</div>
+            {units.filter(([, v]) => v.statements.length).map(([u, v]) => (
+              <div key={u}>
+                <div className="mb-1.5 text-xs font-medium uppercase tracking-wide text-zinc-500">{unitLabel(u)}</div>
                 <ul className="space-y-1.5">
-                  {u.verified_facts.map((f) => (
-                    <li key={f.fact_id} className="rounded-md border border-zinc-100 p-2 text-sm">
-                      <div><span className="text-zinc-500">{prettyField(f.field)}:</span> <span className="font-medium">{f.statement}</span></div>
-                      <div className="text-xs text-zinc-400">{f.citation.issuer} · {f.citation.doc_id} p{f.citation.page} · as at {f.citation.as_at}</div>
+                  {v.statements.map((f) => (
+                    <li key={f.citation.fact_id} className="rounded-md border border-zinc-100 p-2 text-sm">
+                      <div className="font-medium">{f.say}</div>
+                      <div className="text-xs text-zinc-400">{f.citation.issuer} · {f.citation.doc_id} p{f.citation.page}</div>
                     </li>
                   ))}
                 </ul>

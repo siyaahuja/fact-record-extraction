@@ -64,29 +64,24 @@ def extract(slug: str) -> None:
 def rebuild(slug: str) -> dict:
     d = DATA / slug
     docs = _read(d / "out" / "documents.jsonl", [])
-    facts = _read(d / "out" / "facts.jsonl", [])
-    contradictions = _read(d / "out" / "contradictions.jsonl", [])
     meta = _read(d / "meta.json", {})
     dev_ids = Counter(x.get("development_id") for x in docs if x.get("development_id"))
     units = Counter(x.get("unit_id") for x in docs if x.get("unit_id"))
     meta["development_id"] = dev_ids.most_common(1)[0][0] if dev_ids else slug
     meta["name"] = next((x["development_name"] for x in docs if x.get("development_name")), meta.get("name", slug))
-    meta["primary_unit_id"] = units.most_common(1)[0][0] if units else None
+    meta["primary_unit_id"] = cg.cb.LISTING_UNITS.get(cg.contract_name(meta["development_id"], slug)) or \
+        (units.most_common(1)[0][0] if units else None)
+    meta["contract_name"] = cg.contract_name(meta["development_id"], slug)
     _write(d / "meta.json", meta)
-    labels = cg.label_contradictions(contradictions, _read(SAMPLE / "contradictions.json"))
-    extracted = cg.build_extracted({"slug": slug, **meta}, docs, facts, contradictions, labels)
-    actions = _read(d / "contracts" / "02_review_actions.json", None) or {
-        "contract": "02_review_actions", "development_id": meta["development_id"], "actions": []}
-    resolved = cg.build_resolved(extracted, actions["actions"])
-    voice = cg.build_voice(resolved, extracted, meta["primary_unit_id"])
-    listing = cg.build_listing(resolved, extracted, meta["primary_unit_id"])
     c = d / "contracts"
-    _write(c / "01_extracted.json", extracted)
-    _write(c / "02_review_actions.json", actions)
-    _write(c / "03_resolved.json", resolved)
-    _write(c / "04_voice_agent.json", voice)
-    _write(c / "05_listing.json", listing)
-    return resolved
+    c.mkdir(parents=True, exist_ok=True)
+    if not (d / "out" / "facts.jsonl").exists():
+        return {}
+    built = cg.build_all(slug, meta["development_id"], meta["primary_unit_id"], d / "out", d,
+                         _read(c / "02_review_actions.json", None))
+    for n, name in CONTRACTS.items():
+        _write(c / f"{name}.json", built[n])
+    return built
 
 
 def seed() -> None:
@@ -111,21 +106,29 @@ def _startup():
     seed()
 
 
+CONTRACTS = {"01": "01_extracted", "02": "02_review_actions", "03": "03_resolved", "04": "04_voice_agent", "05": "05_listing"}
+EMPTY = {"developments": {}, "units": {}, "listings": {}, "actions": []}
+
+
 def contract(slug: str, n: str) -> dict:
-    names = {"01": "01_extracted", "02": "02_review_actions", "03": "03_resolved", "04": "04_voice_agent", "05": "05_listing"}
-    p = dev_dir(slug) / "contracts" / f"{names[n]}.json"
+    p = dev_dir(slug) / "contracts" / f"{CONTRACTS[n]}.json"
     if not p.exists():
         rebuild(slug)
-    return _read(p)
+    return _read(p, EMPTY)
+
+
+def ui_facts(slug: str) -> list[dict]:
+    raw = {f["fact_id"]: f for f in _read(dev_dir(slug) / "out" / "facts.jsonl", [])}
+    return cg.ui_facts(contract(slug, "03"), raw)
 
 
 def summary(slug: str) -> dict:
     meta = _read(dev_dir(slug) / "meta.json", {})
-    res = contract(slug, "03")
-    ext = contract(slug, "01")
+    res = cg.dev_of(contract(slug, "03"))
+    docs = _read(dev_dir(slug) / "out" / "documents.jsonl", [])
     live = [f for f in res["facts"] if f["status"] != "rejected"]
     verified = [f for f in live if f["status"] == "verified"]
-    return {"slug": slug, **meta, "documents": len(ext["documents"]), "facts": len(res["facts"]),
+    return {"slug": slug, **meta, "documents": len(docs), "facts": len(res["facts"]),
             "rejected_facts": len(res["facts"]) - len(live),
             "open_contradictions": sum(c["status"] == "open" for c in res["contradictions"]),
             "contradictions": len(res["contradictions"]),
@@ -175,21 +178,21 @@ async def upload(slug: str, files: list[UploadFile] = File(...)):
 
 @app.get("/api/developments/{slug}/documents")
 def documents(slug: str):
-    return contract(slug, "01")["documents"]
+    return _read(dev_dir(slug) / "out" / "documents.jsonl", [])
 
 
 @app.get("/api/developments/{slug}/facts")
 def facts(slug: str):
-    return contract(slug, "03")["facts"]
+    return ui_facts(slug)
 
 
 @app.get("/api/developments/{slug}/contradictions")
 def contradictions(slug: str):
-    return contract(slug, "03")["contradictions"]
+    return cg.ui_contradictions(contract(slug, "03"), ui_facts(slug))
 
 
 def _doc_path(slug: str, doc_id: str) -> Path:
-    doc = next((x for x in contract(slug, "01")["documents"] if x["doc_id"] == doc_id), None)
+    doc = next((x for x in documents(slug) if x["doc_id"] == doc_id), None)
     if not doc:
         raise HTTPException(404, "unknown document")
     p = dev_dir(slug) / "docs" / Path(doc["file_uri"]).name
@@ -268,38 +271,44 @@ class ReviewAction(BaseModel):
     contradiction_id: str | None = None
     resolution: str | None = None
     chosen_fact_id: str | None = None
-    reviewer: str = "agency-reviewer"
+    reviewer: str | dict = "agency-reviewer"
+    note: str | None = None
     reason: str | None = None
 
 
 @app.post("/api/developments/{slug}/review-actions")
 def review_action(slug: str, a: ReviewAction):
     d = dev_dir(slug)
-    ext = contract(slug, "01")
-    fact_ids = {f["fact_id"] for f in ext["facts"]}
-    cons = {c["contradiction_id"]: c for c in ext["contradictions"]}
-    labels = {c["label"]: c["contradiction_id"] for c in ext["contradictions"] if c.get("label")}
-    if a.contradiction_id in labels:
-        a.contradiction_id = labels[a.contradiction_id]
+    dev = cg.dev_of(contract(slug, "01"))
+    fact_ids = {f["id"] for f in dev["facts"]}
+    cons = {c["id"]: c for c in dev["contradictions"]}
+    reviewer = a.reviewer if isinstance(a.reviewer, dict) else {"id": a.reviewer, "name": a.reviewer}
+    entry = {"action": a.action, "reviewer": reviewer, "at": cg.now()}
     if a.action in ("reject_fact", "unreject_fact"):
         if a.fact_id not in fact_ids:
             raise HTTPException(400, "unknown fact_id")
-    elif a.action == "resolve_contradiction":
+        entry["fact_id"] = a.fact_id
+    elif a.action in ("resolve_contradiction", "reopen_contradiction"):
         c = cons.get(a.contradiction_id)
         if not c:
-            raise HTTPException(400, "unknown contradiction_id")
-        if a.resolution not in ("choose_fact", "accept_recommendation", "keep_both_scoped"):
-            raise HTTPException(400, "resolution must be choose_fact | accept_recommendation | keep_both_scoped")
-        if a.resolution == "choose_fact" and a.chosen_fact_id not in c["fact_ids"]:
-            raise HTTPException(400, "chosen_fact_id must be one of the contradiction's fact_ids")
-    elif a.action == "reopen_contradiction":
-        if a.contradiction_id not in cons:
-            raise HTTPException(400, "unknown contradiction_id")
+            raise HTTPException(400, f"unknown contradiction_id (known: {', '.join(cons)})")
+        entry["contradiction_id"] = c["id"]
+        if a.action == "resolve_contradiction":
+            if a.resolution not in ("choose_fact", "accept_recommendation", "keep_both_scoped"):
+                raise HTTPException(400, "resolution must be choose_fact | accept_recommendation | keep_both_scoped")
+            if a.resolution == "accept_recommendation" and not c.get("recommended_fact_id"):
+                raise HTTPException(400, "this contradiction has no recommendation; use keep_both_scoped or choose_fact")
+            entry["resolution"] = a.resolution
+            if a.resolution == "choose_fact":
+                pick = a.chosen_fact_id or a.fact_id
+                if pick not in c["fact_ids"]:
+                    raise HTTPException(400, "fact_id must be one of the contradiction's fact_ids")
+                entry["fact_id"] = pick
     else:
         raise HTTPException(400, "unknown action")
+    if a.note or a.reason:
+        entry["note"] = a.note or a.reason
     actions = contract(slug, "02")
-    entry = {"action_id": str(uuid.uuid4()), **{k: v for k, v in a.model_dump().items() if v is not None},
-             "timestamp": cg.now()}
     actions["actions"].append(entry)
     _write(d / "contracts" / "02_review_actions.json", actions)
     rebuild(slug)
