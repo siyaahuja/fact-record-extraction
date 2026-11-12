@@ -18,7 +18,7 @@ from .validate import validate
 
 CONTRACT_KEYS = ("doc_id", "unit_hint", "scope", "field", "qualifier", "value_raw", "value", "normalised",
                  "page", "quote", "doc_error", "confidence")
-EXTRA_KEYS = ("fact_id", "development_id", "unit_id", "as_at", "authority_tier", "extraction_method",
+EXTRA_KEYS = ("cross_check", "fact_id", "development_id", "unit_id", "as_at", "authority_tier", "extraction_method",
               "quote_source", "quote_match", "unit_check", "cites_official_record", "status")
 
 
@@ -42,9 +42,39 @@ def _dedupe_key(f: dict) -> tuple:
 
 
 def _rank(f: dict) -> tuple:
-    method = 0 if f["extraction_method"].startswith("llm") else 1
+    """Total order between duplicate candidates, so the same inputs always keep the same fact."""
     src = {"pdf_text_table": 0, "pdf_text": 1, "ocr_table": 2, "layout_rows": 2, "ocr": 3, "repaired_text": 4}.get(f.get("text_source", ""), 5)
-    return (method, f.get("doc_error") is False, src, -len(f.get("value", {})), len(f["quote"]))
+    return (f.get("doc_error") is False, src, -len(f.get("value", {})), len(f["quote"]), f["quote"], json.dumps(f["value"], sort_keys=True))
+
+
+def _slot(f: dict) -> tuple:
+    """What a fact is about, ignoring its value: where rules and the LLM can agree or disagree."""
+    q = {k: v for k, v in f["qualifier"].items() if k in ("basis", "scope", "type", "room", "period", "per")}
+    return (f["page"], f["field"], json.dumps(q, sort_keys=True), f.get("target_scope"))
+
+
+def _merge(rule_facts: list[dict], llm_facts: list[dict], rejected: list[dict]) -> list[dict]:
+    """Rules are the primary path. The LLM confirms rules facts, flags disagreements for review, and only adds
+    facts for a page+field the rules found nothing for. Inputs are sorted, so the merge is deterministic."""
+    by_key = {_dedupe_key(f): f for f in rule_facts}
+    by_slot = defaultdict(list)
+    fields_on_page = {(f["page"], f["field"]) for f in rule_facts}
+    for f in rule_facts:
+        by_slot[_slot(f)].append(f)
+    added = {}
+    for f in sorted(llm_facts, key=lambda f: (_dedupe_key(f), _rank(f))):
+        key = _dedupe_key(f)
+        if key in by_key:
+            by_key[key]["cross_check"] = "llm_agrees"
+        elif by_slot.get(_slot(f)):
+            for r in by_slot[_slot(f)]:
+                r.setdefault("cross_check", "llm_disagrees")
+            rejected.append({**{k: f.get(k) for k in ("doc_id", "page", "field", "value_raw", "quote", "extraction_method")},
+                             "value": f["value"], "reason": "llm_disagrees_with_rules (kept rules fact; review)"})
+        elif (f["page"], f["field"]) not in fields_on_page and key not in added:
+            f["cross_check"] = "llm_only"
+            added[key] = f
+    return rule_facts + list(added.values())
 
 
 def _assign_unit(f: dict, doc: dict) -> None:
@@ -86,12 +116,11 @@ def _order(f: dict) -> dict:
 
 
 def run(input_dir: str, out_dir: str, extractor: str = "auto", cache_dir: str = ".cache", workers: int = 4,
-        log=print) -> dict:
+        log=print, llm_pages: str = "scanned", provider=None) -> dict:
     files = sorted(glob.glob(os.path.join(input_dir, "**", "*.pdf"), recursive=True))
     if not files:
         raise SystemExit(f"no PDFs under {input_dir}")
-    provider = None
-    if extractor in ("auto", "llm", "hybrid"):
+    if extractor in ("auto", "llm", "hybrid") and provider is None:
         provider = get_provider(cache_dir=cache_dir)
         if provider is None:
             if extractor != "auto":
@@ -120,8 +149,11 @@ def run(input_dir: str, out_dir: str, extractor: str = "auto", cache_dir: str = 
                 cands += rules.extract_page(page, meta["doc_type"], meta["focus_floor"])
         candidates[meta["doc_id"]] = cands
 
+    llm_candidates: dict[str, list[dict]] = {meta["doc_id"]: [] for meta in docs}
     if extractor in ("llm", "hybrid"):
-        jobs = [(d, meta, page) for d, meta in zip(loaded, docs) for page in d.pages]
+        # In hybrid mode the LLM reads only pages where the text layer can't be trusted (scanned, garbled).
+        jobs = [(d, meta, page) for d, meta in zip(loaded, docs) for page in d.pages
+                if extractor == "llm" or llm_pages == "all" or page.text_status != "good"]
 
         def work(job):
             d, meta, page = job
@@ -131,14 +163,15 @@ def run(input_dir: str, out_dir: str, extractor: str = "auto", cache_dir: str = 
                 return meta["doc_id"], [], f"p{page.page_no}: {type(e).__name__}: {e}"
         with ThreadPoolExecutor(workers) as ex:
             for doc_id, cands, err in ex.map(work, jobs):
-                candidates[doc_id] += cands
+                llm_candidates[doc_id] += cands
                 if err:
                     log(f"  ! LLM failed on {doc_id} {err}")
                     next(m for m in docs if m["doc_id"] == doc_id).setdefault("llm_errors", []).append(err)
 
     beds = {}
     for meta in docs:
-        b = Counter(c["value"].get("count") for c in candidates[meta["doc_id"]] if c["field"] == "bedrooms")
+        b = Counter(c["value"].get("count") for c in candidates[meta["doc_id"]] + llm_candidates[meta["doc_id"]]
+                    if c["field"] == "bedrooms")
         beds[meta["doc_id"]] = b.most_common(1)[0][0] if b else None
     cls.resolve_entities(docs, beds)
 
@@ -146,25 +179,30 @@ def run(input_dir: str, out_dir: str, extractor: str = "auto", cache_dir: str = 
     for d, meta in zip(loaded, docs):
         pages = {p.page_no: p for p in d.pages}
         hay: dict = {}
-        best: dict[tuple, dict] = {}
-        for c in candidates[meta["doc_id"]]:
-            c["doc_id"] = meta["doc_id"]
-            ok, reason = validate(dict(c), pages, hay)
-            if ok is None:
-                rejected.append({**{k: c.get(k) for k in ("doc_id", "page", "field", "value_raw", "quote", "extraction_method")},
-                                 "reason": reason})
-                continue
-            key = _dedupe_key(ok)
-            if key not in best or _rank(ok) < _rank(best[key]):
-                best[key] = ok
-        for f in best.values():
+        validated = []
+        for source in (candidates, llm_candidates):
+            best: dict[tuple, dict] = {}
+            for c in source[meta["doc_id"]]:
+                c["doc_id"] = meta["doc_id"]
+                ok, reason = validate(dict(c), pages, hay)
+                if ok is None:
+                    rejected.append({**{k: c.get(k) for k in ("doc_id", "page", "field", "value_raw", "quote", "extraction_method")},
+                                     "reason": reason})
+                    continue
+                key = _dedupe_key(ok)
+                if key not in best or _rank(ok) < _rank(best[key]):
+                    best[key] = ok
+            validated.append([best[k] for k in sorted(best, key=str)])
+        merged = validated[0] + validated[1] if extractor == "llm" else _merge(validated[0], validated[1], rejected)
+        for f in merged:
             _assign_unit(f, meta)
             f["fact_id"] = str(uuid.uuid5(uuid.NAMESPACE_URL, json.dumps(_dedupe_key(f)) + f["quote"]))
             f["as_at"] = meta.get("register_date") if meta["authority_tier"] == 2 and meta.get("register_date") else meta.get("doc_date")
             f["authority_tier"] = meta["authority_tier"]
             f["status"] = "extracted"
             facts.append(f)
-    facts.sort(key=lambda f: (f["doc_id"], f["page"], f["field"]))
+    facts.sort(key=lambda f: (f["doc_id"], f["page"], f["field"], json.dumps(f["qualifier"], sort_keys=True),
+                              json.dumps(f["value"], sort_keys=True), f["unit_id"] or "", f["quote"]))
 
     contradictions = detect(facts, docs)
     os.makedirs(out_dir, exist_ok=True)
