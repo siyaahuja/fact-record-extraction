@@ -78,7 +78,7 @@ def rebuild(slug: str) -> dict:
     actions = _read(d / "contracts" / "02_review_actions.json", None) or {
         "contract": "02_review_actions", "development_id": meta["development_id"], "actions": []}
     resolved = cg.build_resolved(extracted, actions["actions"])
-    voice = cg.build_voice(resolved, extracted)
+    voice = cg.build_voice(resolved, extracted, meta["primary_unit_id"])
     listing = cg.build_listing(resolved, extracted, meta["primary_unit_id"])
     c = d / "contracts"
     _write(c / "01_extracted.json", extracted)
@@ -213,6 +213,7 @@ def page_image(slug: str, doc_id: str, page: int, quote: str | None = None):
         if not 1 <= page <= doc.page_count:
             raise HTTPException(404, "no such page")
         pg = doc[page - 1]
+        hits = []
         if quote:
             hits = pg.search_for(quote[:60]) or pg.search_for(quote.split("\n")[0][:30])
             for r in hits:
@@ -220,8 +221,45 @@ def page_image(slug: str, doc_id: str, page: int, quote: str | None = None):
                 annot.set_colors(stroke=(1, 0.85, 0.2))
                 annot.update()
         out.parent.mkdir(parents=True, exist_ok=True)
-        pg.get_pixmap(matrix=fitz.Matrix(1.6, 1.6), annots=True).save(out)
+        pix = pg.get_pixmap(matrix=fitz.Matrix(1.6, 1.6), annots=True)
+        if quote and not hits:
+            _ocr_highlight(pix, quote).save(out)
+        else:
+            pix.save(out)
     return FileResponse(out, media_type="image/png")
+
+
+def _norm_tok(s: str) -> str:
+    return re.sub(r"[^a-z0-9£]", "", s.lower())
+
+
+def _ocr_highlight(pix, quote: str):
+    """Scanned pages have no text layer: find the quote's words in Tesseract's word boxes and box them."""
+    from PIL import Image, ImageDraw
+    import pytesseract
+    img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples).convert("RGBA")
+    q = [t for t in (_norm_tok(w) for w in quote.split()) if t]
+    if not q:
+        return img
+    try:
+        data = pytesseract.image_to_data(img.convert("RGB"), output_type=pytesseract.Output.DICT, timeout=30)
+    except Exception:
+        return img
+    words = [(i, _norm_tok(t)) for i, t in enumerate(data["text"]) if _norm_tok(t)]
+    best, best_i = 0, None
+    for s in range(len(words)):
+        score = sum(1 for k in range(min(len(q), len(words) - s)) if words[s + k][1] == q[k])
+        if score > best:
+            best, best_i = score, s
+    if best_i is None or best < max(1, len(q) * 0.5):
+        return img
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    for k in range(min(len(q), len(words) - best_i)):
+        i = words[best_i + k][0]
+        x, y, w, h = data["left"][i], data["top"][i], data["width"][i], data["height"][i]
+        draw.rectangle([x - 3, y - 3, x + w + 3, y + h + 3], fill=(255, 210, 40, 110), outline=(230, 150, 0, 255), width=2)
+    return Image.alpha_composite(img, overlay).convert("RGB")
 
 
 class ReviewAction(BaseModel):

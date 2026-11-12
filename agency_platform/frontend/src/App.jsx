@@ -388,7 +388,19 @@ function PublishTab({ slug, notify, refresh, version }) {
         </Card>
         <Card className="lg:col-span-2">
           <div className="flex items-center gap-2 border-b border-zinc-100 p-4"><Mic className="size-4" /><span className="font-semibold">Voice agent payload</span><span className="text-xs text-zinc-500">04_voice_agent</span></div>
-          <div className="max-h-[640px] space-y-4 overflow-auto p-4">
+          <div className="max-h-[720px] space-y-4 overflow-auto p-4">
+            <div>
+              <div className="mb-1.5 flex items-center gap-1 text-xs font-medium uppercase tracking-wide text-red-600"><X className="size-3" />Do not state</div>
+              <ul className="space-y-1.5">
+                {voice.do_not_state.map((d, i) => (
+                  <li key={i} className="rounded-md border border-red-100 bg-red-50/50 p-2 text-sm">
+                    <span className="font-medium">{prettyField(d.field)}</span> <span className="capitalize text-zinc-500">· {unitLabel(d.unit_id)}</span>
+                    <div className="text-xs text-zinc-500">{d.reason}{d.contradictions.length ? ` · ${d.contradictions.join(', ')}` : ''}</div>
+                  </li>
+                ))}
+                {!voice.do_not_state.length && <li className="text-sm text-zinc-500">Nothing blocked.</li>}
+              </ul>
+            </div>
             {voice.units.map((u) => (
               <div key={u.unit_id}>
                 <div className="mb-1.5 text-xs font-medium uppercase tracking-wide text-zinc-500">{unitLabel(u.unit_id)}</div>
@@ -402,18 +414,6 @@ function PublishTab({ slug, notify, refresh, version }) {
                 </ul>
               </div>
             ))}
-            <div>
-              <div className="mb-1.5 flex items-center gap-1 text-xs font-medium uppercase tracking-wide text-red-600"><X className="size-3" />Do not state</div>
-              <ul className="space-y-1.5">
-                {voice.do_not_state.map((d, i) => (
-                  <li key={i} className="rounded-md border border-red-100 bg-red-50/50 p-2 text-sm">
-                    <span className="font-medium">{prettyField(d.field)}</span> <span className="capitalize text-zinc-500">· {unitLabel(d.unit_id)}</span>
-                    <div className="text-xs text-zinc-500">{d.reason}{d.contradictions.length ? ` · ${d.contradictions.join(', ')}` : ''}</div>
-                  </li>
-                ))}
-                {!voice.do_not_state.length && <li className="text-sm text-zinc-500">Nothing blocked.</li>}
-              </ul>
-            </div>
           </div>
         </Card>
       </div>

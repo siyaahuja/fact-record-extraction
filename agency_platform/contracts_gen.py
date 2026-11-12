@@ -263,12 +263,13 @@ def _best(facts: list[dict]) -> dict:
     return sorted(facts, key=lambda f: (f.get("authority_tier") or 9, "".join(reversed(f.get("as_at") or "")), f["fact_id"]))[0]
 
 
-def build_voice(resolved: dict, extracted: dict) -> dict:
+def build_voice(resolved: dict, extracted: dict, primary_unit: str | None = None) -> dict:
     dmap = {d["doc_id"]: d for d in extracted["documents"]}
     units = defaultdict(list)
     slots = defaultdict(list)
     for f in resolved["facts"]:
-        slots[slot_key(f)].append(f)
+        if not f.get("doc_error"):
+            slots[slot_key(f)].append(f)
     do_not_state = []
     for key, fs in sorted(slots.items()):
         ver = [f for f in fs if f["status"] == "verified"]
@@ -290,7 +291,8 @@ def build_voice(resolved: dict, extracted: dict) -> dict:
                                      "reason": f["status"], "contradictions": sorted({c for b in blocked for c in b["open_contradictions"]}),
                                      "say_instead": "I can't confirm that yet; an agent will come back to you."})
     return {"contract": "04_voice_agent", "development_id": resolved["development_id"], "generated_at": now(),
-            "units": [{"unit_id": u, "verified_facts": v} for u, v in sorted(units.items())],
+            "primary_unit_id": primary_unit,
+            "units": [{"unit_id": u, "verified_facts": v} for u, v in sorted(units.items(), key=lambda kv: (kv[0] != primary_unit, kv[0]))],
             "do_not_state": do_not_state}
 
 
@@ -301,7 +303,7 @@ LISTING_FIELDS = ["price", "transaction_type", "tenure", "floor_area", "bedrooms
 def build_listing(resolved: dict, extracted: dict, primary_unit: str | None) -> dict:
     slots = defaultdict(list)
     for f in resolved["facts"]:
-        if f["field"] in LISTING_FIELDS and f["status"] != "rejected":
+        if f["field"] in LISTING_FIELDS and f["status"] != "rejected" and not f.get("doc_error"):
             slots[slot_key(f)].append(f)
     units = defaultdict(list)
     for key, fs in slots.items():
