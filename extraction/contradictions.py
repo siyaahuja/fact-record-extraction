@@ -65,8 +65,9 @@ def _classify_pair(a: dict, b: dict, docs: dict) -> tuple[str, dict | None, str]
         good = [f for f in (a, b) if not f["doc_error"] and f["qualifier"].get("basis") != "unspecified"]
         return "unit_or_measurement_mismatch", (good[0] if len(good) == 1 else None), "normalise_and_label"
     ta, tb = a["authority_tier"] or 9, b["authority_tier"] or 9
-    if 2 in (ta, tb) and ta != tb:
-        return "official_record_mismatch", (a if ta == 2 else b), "human_required"
+    oa, ob = ta == 2 or bool(a.get("cites_official_record")), tb == 2 or bool(b.get("cites_official_record"))
+    if oa != ob:
+        return "official_record_mismatch", (a if oa else b), "human_required"
     newer = a if (da.get("doc_date") or "") > (db.get("doc_date") or "") else b
     if 6 in (ta, tb) and ta != tb:
         other = b if ta == 6 else a
@@ -131,6 +132,10 @@ def detect(facts: list[dict], docs_list: list[dict]) -> list[dict]:
             if ua.endswith(":development") != ub.endswith(":development"):
                 unit = ub if ua.endswith(":development") else ua
                 add((f"{unit} vs {dev}:development", field, "scope=development_vs_unit"), "scope_difference", a, b, None, "keep_both_scoped")
+            elif (":type-" in ua) != (":type-" in ub) and json.dumps(a["qualifier"], sort_keys=True) == json.dumps(b["qualifier"], sort_keys=True):
+                unit = ub if ":type-" in ua else ua
+                add((f"{unit} vs {dev}:house-types", field, json.dumps(a["qualifier"], sort_keys=True)),
+                    "plot_or_type_variation", a, b, None, "resolve_entity_never_merge")
             elif "ambiguous" in (units.get(ua), units.get(ub)) and not any(u.endswith((":whole", ":development")) for u in (ua, ub)) \
                     and json.dumps(a["qualifier"], sort_keys=True) == json.dumps(b["qualifier"], sort_keys=True):
                 pair = " vs ".join(sorted((ua, ub)))

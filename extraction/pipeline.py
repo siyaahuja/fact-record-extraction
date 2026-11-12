@@ -19,7 +19,7 @@ from .validate import validate
 CONTRACT_KEYS = ("doc_id", "unit_hint", "scope", "field", "qualifier", "value_raw", "value", "normalised",
                  "page", "quote", "doc_error", "confidence")
 EXTRA_KEYS = ("fact_id", "development_id", "unit_id", "as_at", "authority_tier", "extraction_method",
-              "quote_source", "quote_match", "unit_check", "status")
+              "quote_source", "quote_match", "unit_check", "cites_official_record", "status")
 
 
 def _load_registry(folder: str) -> dict[str, str]:
@@ -38,7 +38,7 @@ def _dedupe_key(f: dict) -> tuple:
         core = round(f["normalised"]["sq_m"])
     else:
         core = json.dumps({k: v[k] for k in sorted(v) if k not in ("text", "kind", "score", "certificate_date")}, sort_keys=True)
-    return (f["doc_id"], f["page"], f["field"], json.dumps(f["qualifier"], sort_keys=True), core)
+    return (f["doc_id"], f["page"], f["field"], json.dumps(f["qualifier"], sort_keys=True), core, f.get("target_scope"))
 
 
 def _rank(f: dict) -> tuple:
@@ -50,7 +50,7 @@ def _rank(f: dict) -> tuple:
 def _assign_unit(f: dict, doc: dict) -> None:
     dev, base = doc.get("development_id"), doc.get("unit_id")
     q = f["qualifier"]
-    scope_q = q.get("scope") if f["field"] in ("floor_area", "availability") else None
+    scope_q = (q.get("scope") if f["field"] in ("floor_area", "availability") else None) or f.pop("target_scope", None)
     floor = f.pop("unit_floor", None)
     if scope_q and scope_q.startswith("floor:"):
         floor = scope_q.split(":", 1)[1]

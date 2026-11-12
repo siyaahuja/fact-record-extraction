@@ -10,6 +10,7 @@ import re
 from .pdfio import Page, Row
 from .units import AREA_UNIT, NUM, WORD_NUMBERS, area_unit, parse_money, parse_number
 
+DATE_ISO_RE = r"\d{1,2}\s+(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{4}"
 WORDNUM = "|".join(sorted(WORD_NUMBERS, key=len, reverse=True))
 COUNT = rf"(?:\d{{1,3}}|{WORDNUM})"
 FLOOR_RE = r"(lower\s+ground|upper\s+ground|ground|first|second|third|fourth|fifth|basement|lower|mezzanine|attic)\s+floor"
@@ -227,14 +228,16 @@ def extract_area(ctx: Ctx, source: str, text: str):
             continue
         if re.search(r"(?:than|from|vs\.?|versus)\s+(?:the\s+)?$", text[max(0, start - 15):start], re.I):
             continue
-        if re.search(r"/\s*$|per\s+$", text[max(0, start - 5):start]):
+        if re.search(r"/\s*$|per\s+$|=\s*$", text[max(0, start - 5):start]):
             continue
         prev_end = spans[i - 1][1] if i else 0
         next_start = spans[i + 1][0] if i + 1 < len(spans) else len(text)
         line_start = text.rfind("\n", 0, start) + 1
         before_lines = [l.strip() for l in text[:line_start].splitlines()[-4:]][::-1]
         basis = _basis(text, start, end, prev_end, next_start, before_lines)
-        if basis == "unspecified" and ctx.doc_type == "epc_certificate" and re.search(r"floor\s+area", text[max(0, start - 60):start], re.I):
+        lead = text[max(0, start - 60):start]
+        if basis == "unspecified" and ((ctx.doc_type == "epc_certificate" and re.search(r"floor\s+area", lead, re.I))
+                                       or re.search(r"useful\s+floor\s+area", lead, re.I)):
             basis = "EPC"
         scope = _scope(ctx, text[line_start:start], before_lines)
         (amount, unit) = vals[0]
@@ -368,6 +371,20 @@ def extract_epc(ctx: Ctx, source: str, text: str):
         if d:
             val["certificate_date"] = d.group(1)
         ctx.add(source, "epc_rating", {"type": "current"}, val, m.group(0), _line_span(text, m.start(), m.end()))
+    for m in re.finditer(r"\b(?:asset\s+rating\s+of\s+(\d{1,3}),?\s+)?band\s+([A-G])\b", text, re.I):
+        context = text[max(0, m.start() - 250):m.start()]
+        if not re.search(r"\bEPC\b|energy\s+performance", context, re.I):
+            continue
+        val = {"band": m.group(2)}
+        if m.group(1):
+            val["score"] = int(m.group(1))
+        extra = {}
+        cert = re.search(r"certificate\s*\n?\s*(\d{4}(?:-\d{4}){4})", context)
+        if cert:
+            dated = re.search(DATE_ISO_RE, text[cert.end():cert.end() + 60], re.I)
+            extra["cites_official_record"] = {"type": "epc_certificate", "ref": cert.group(1),
+                                              "date": dated.group(0) if dated else None}
+        ctx.add(source, "epc_rating", {"type": "current"}, val, m.group(0), _line_span(text, m.start(), m.end()), **extra)
     for m in re.finditer(r"potential\s+to\s+be\s+([A-G])\b", text, re.I):
         ctx.add(source, "epc_rating", {"type": "potential"}, {"band": m.group(1)}, m.group(0), _line_span(text, m.start(), m.end()))
 
@@ -390,7 +407,7 @@ def extract_parking(ctx: Ctx, source: str, text: str):
                  else "total")
         kind = "allocated" if re.search(r"allocated", m.group(0) + clause, re.I) else "unspecified"
         ctx.add(source, "parking", {"scope": scope}, {"spaces": int(n), "kind": kind}, m.group(0), _line_span(text, m.start(), m.end()))
-    for m in re.finditer(r"(total\s+)?(allocated\s+)?parking\s+spaces?\s*[:\-]\s*(\d{1,3})", text, re.I):
+    for m in re.finditer(r"(total\s+)?(allocated\s+)?parking\s+(?:spaces?|bays?)\s*[:\-]\s*(\d{1,3})", text, re.I):
         kind = "allocated" if m.group(2) else "unspecified"
         ctx.add(source, "parking", {"scope": "total"}, {"spaces": int(m.group(3)), "kind": kind}, m.group(0), _line_span(text, m.start(), m.end()))
     for m in re.finditer(r"\b(single|double|triple)\s+garage\b", text, re.I):
@@ -437,10 +454,43 @@ def extract_secondary(ctx: Ctx, source: str, text: str):
                 _line_span(text, m.start(), m.end()), confidence=0.5)
 
 
+def extract_type_tables(ctx: Ctx):
+    """House-type / plot schedules: per-type bedroom and bathroom counts, attached to the type, never to a plot."""
+    rows = [r for r in ctx.page.rows if r.source == "pdf_text"]
+    for hi, header in enumerate(rows):
+        if not re.fullmatch(r"type|house\s+type", header.words[0].text, re.I):
+            continue
+        cols = {}
+        for w in header.words:
+            if re.fullmatch(r"bedrooms?", w.text, re.I):
+                cols["bedrooms"] = w.xc
+            elif re.fullmatch(r"bathrooms?", w.text, re.I):
+                cols["bathrooms"] = w.xc
+        if not cols:
+            continue
+        for row in rows[hi + 1:hi + 20]:
+            first = row.words[0].text
+            if not re.fullmatch(r"[A-Z]|\d{1,2}[A-Z]?", first) or re.fullmatch(r"plot", first, re.I):
+                break
+            for field, xc in cols.items():
+                best = min((w for w in row.words[1:] if re.fullmatch(r"\d{1,2}", w.text)), key=lambda w: abs(w.xc - xc), default=None)
+                if best is not None and abs(best.xc - xc) < 30:
+                    ctx.add("pdf_text_table", field, {}, {"count": int(best.text)}, best.text, row.text,
+                            target_scope=f"house_type:{first.upper()}", table_header=header.text, confidence=0.85)
+    for source, text in ctx.page.sources().items():
+        for m in re.finditer(r"\btype\s+([A-Z])\s*:\s*(principal|guest|master)\s+en[\s-]?suite\s+with\s+([^.\n]*)", text, re.I):
+            desc = m.group(3).lower()
+            fixture = "both" if "bath" in desc and "shower" in desc else "bath" if "bath" in desc else "shower" if "shower" in desc else None
+            if fixture:
+                ctx.add(source, "bathroom_fixture", {"room": f"{m.group(2).lower()}_en_suite"}, {"fixture": fixture, "text": m.group(0)},
+                        m.group(0), _line_span(text, m.start(), m.end()), target_scope=f"house_type:{m.group(1).upper()}", confidence=0.8)
+
+
 def extract_page(page: Page, doc_type: str, focus_floor: str | None = None) -> list[dict]:
     ctx = Ctx(page, doc_type, focus_floor)
     for source, text in page.sources().items():
         for fn in (extract_money, extract_tenure, extract_area, extract_epc, extract_parking, extract_secondary):
             fn(ctx, source, text)
     extract_area_tables(ctx)
+    extract_type_tables(ctx)
     return ctx.out
